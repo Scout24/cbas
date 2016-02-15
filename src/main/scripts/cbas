@@ -64,7 +64,6 @@ def upload(**kwargs):
                                   headers=jump_request_header)
     jump_response.raise_for_status()
     print(jump_response.text)
-    pass
 
 
 @main.command
