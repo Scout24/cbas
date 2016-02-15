@@ -10,6 +10,7 @@
     --help  Show this message and exit.
   
   Commands:
+    delete
     upload
 
   $ cbas
@@ -19,6 +20,7 @@
     --help  Show this message and exit.
   
   Commands:
+    delete
     upload
 
   $ cbas upload
