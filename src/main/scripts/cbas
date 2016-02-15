@@ -8,17 +8,12 @@ import os
 auth_url = ''
 
 
-@click.group()
-def jump():
-    pass
-
-
-@jump.command()
+@click.command()
 @click.option('--username')
 @click.option('--jumphost')
 @click.option('--sshkey')
 @click.option('--password', prompt=True, hide_input=True)
-def ssh(**kwargs):
+def main(**kwargs):
     if not kwargs['sshkey']:
         ssh_key_path = os.environ['HOME'] + '/.ssh/id_rsa.pub'
     else:
@@ -62,4 +57,4 @@ def ssh(**kwargs):
 
 
 if __name__ == '__main__':
-    jump()
+    main()
