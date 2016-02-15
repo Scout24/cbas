@@ -26,6 +26,15 @@ def get_username(args):
     return args['username'] if args['username'] else getpass.getuser()
 
 
+def get_sshkey(args):
+    if not args['sshkey']:
+        ssh_key_path = os.environ['HOME'] + '/.ssh/id_rsa.pub'
+    else:
+        ssh_key_path = args['sshkey']
+    with open(ssh_key_path, "r") as ssh_key_filehandle:
+        return ssh_key_filehandle.read()
+
+
 @click.group()
 def main(**kwargs):
     pass
@@ -33,27 +42,23 @@ def main(**kwargs):
 
 @main.command()
 @click.option('--auth-url')
+@click.option('--client-secret')
 @click.option('--username')
 @click.option('--sshkey')
-@click.option('--password', prompt=True, hide_input=True)
 @click.argument('jumphost')
+@click.option('--password-provider')
 def upload(**kwargs):
-    if not kwargs['sshkey']:
-        ssh_key_path = os.environ['HOME'] + '/.ssh/id_rsa.pub'
-    else:
-        ssh_key_path = kwargs['sshkey']
+    print(kwargs)
+    client_secret = kwargs['client_secret']
+    auth_url = kwargs['auth_url']
 
-    ssh_key_filehandle = open(ssh_key_path, "r")
-    ssh_key = ssh_key_filehandle.readline()
-    ssh_key_filehandle.close()
-
-
-    print(username)
-    print(ssh_key)
     username = get_username(kwargs)
-    auth_url = kwargs['auth-url']
-    password = kwargs['kwargs']
-    access_token = obtain_access_token(auth_url, username, password)
+    ssh_key = get_sshkey(kwargs)
+    password_provider = kwargs.get('password_provider') or 'prompt'
+    password = get_password(password_provider, username)
+
+    access_token = obtain_access_token(
+        auth_url, client_secret, username, password)
 
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
