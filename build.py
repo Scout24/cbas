@@ -16,3 +16,5 @@ default_task = "publish"
 @init
 def set_properties(project):
     project.depends_on('click')
+    project.depends_on('keyring')
+    project.depends_on('secretstorage')
