@@ -18,6 +18,7 @@ def obtain_access_token(auth_url, username, password):
     click.echo("Access token: '{0}'".format(access_token))
     return access_token
 
+
 @click.group()
 def main():
     pass
