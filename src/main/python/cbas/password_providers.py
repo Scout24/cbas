@@ -18,7 +18,6 @@ def prompt_get_password(username):
 def keyring_get_password(username):
 
     keyring_impl = keyring.get_keyring()
-
     debug("Note: will use the backend: '{0}'".format(keyring_impl))
     password = keyring.get_password('cbas', username)
     if not password:

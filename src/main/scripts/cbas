@@ -3,10 +3,10 @@ import json
 import getpass
 import os
 
-import keyring
 import click
 import requests
 
+from cbas.password_providers import get_password
 
 
 def obtain_access_token(auth_url, username, password):
@@ -28,8 +28,8 @@ def get_username(args):
 
 
 @click.group()
-@click.option('--password-provider')
-def main():
+@click.pass_context
+def main(ctx, **kwargs):
     pass
 
 
@@ -39,7 +39,7 @@ def main():
 @click.option('--sshkey')
 @click.option('--password', prompt=True, hide_input=True)
 @click.argument('jumphost')
-def upload(**kwargs):
+def upload(ctx, **kwargs):
     if not kwargs['sshkey']:
         ssh_key_path = os.environ['HOME'] + '/.ssh/id_rsa.pub'
     else:
@@ -76,7 +76,13 @@ def upload(**kwargs):
 @click.option('--username')
 @click.option('--client-secret')
 @click.argument('jumphost')
+@click.option('--password-provider')
 def delete(**kwargs):
+    username = get_username(kwargs)
+    print(kwargs)
+    password_provider = kwargs.get('password_provider') or 'prompt'
+    password = get_password(password_provider, username)
+    auth_url = kwargs['auth-url']
     access_token = obtain_access_token(auth_url, username, password)
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
