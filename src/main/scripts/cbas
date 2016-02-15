@@ -18,7 +18,6 @@ def obtain_access_token(auth_url, username, password):
     click.echo("Access token: '{0}'".format(access_token))
     return access_token
 
-
 @click.group()
 def main():
     pass
@@ -66,9 +65,19 @@ def upload(**kwargs):
     print(jump_response.text)
 
 
-@main.command
+@main.command()
+@click.option('--auth-url')
+@click.option('--username')
+@click.argument('jumphost')
 def delete(**kwargs):
-    pass
+    access_token = obtain_access_token(auth_url, username, password)
+    jump_request_header = {'Authorization': 'Bearer ' + access_token,
+                           'Content-Type': 'application/json',
+                           'Cache-Control': 'no-cache'}
+    jump_url = 'https://' + kwargs['jumphost'] + '/delete'
+
+    jump_response = requests.post(jump_url, headers=jump_request_header)
+    jump_response.raise_for_status()
 
 if __name__ == '__main__':
     main()
