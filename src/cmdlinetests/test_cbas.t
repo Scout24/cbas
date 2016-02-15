@@ -4,16 +4,25 @@
 # test the help
 
   $ cbas --help
-  Usage: cbas [OPTIONS] JUMPHOST
+  Usage: cbas [OPTIONS] COMMAND [ARGS]...
   
   Options:
-    --username TEXT
-    --sshkey TEXT
-    --password TEXT
-    --help           Show this message and exit.
+    --help  Show this message and exit.
+  
+  Commands:
+    upload
 
   $ cbas
-  Usage: cbas [OPTIONS] JUMPHOST
+  Usage: cbas [OPTIONS] COMMAND [ARGS]...
+  
+  Options:
+    --help  Show this message and exit.
+  
+  Commands:
+    upload
+
+  $ cbas upload
+  Usage: cbas upload [OPTIONS] JUMPHOST
   
   Error: Missing argument "jumphost".
   [2]

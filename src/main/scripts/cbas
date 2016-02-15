@@ -8,12 +8,17 @@ import os
 auth_url = ''
 
 
-@click.command()
+@click.group()
+def main():
+    pass
+
+
+@main.command()
 @click.option('--username')
 @click.option('--sshkey')
 @click.option('--password', prompt=True, hide_input=True)
 @click.argument('jumphost')
-def main(**kwargs):
+def upload(**kwargs):
     if not kwargs['sshkey']:
         ssh_key_path = os.environ['HOME'] + '/.ssh/id_rsa.pub'
     else:
