@@ -26,10 +26,8 @@ def get_username(args):
     return args['username'] if args['username'] else getpass.getuser()
 
 
-
 @click.group()
-@click.pass_context
-def main(ctx, **kwargs):
+def main(**kwargs):
     pass
 
 
@@ -39,7 +37,7 @@ def main(ctx, **kwargs):
 @click.option('--sshkey')
 @click.option('--password', prompt=True, hide_input=True)
 @click.argument('jumphost')
-def upload(ctx, **kwargs):
+def upload(**kwargs):
     if not kwargs['sshkey']:
         ssh_key_path = os.environ['HOME'] + '/.ssh/id_rsa.pub'
     else:
