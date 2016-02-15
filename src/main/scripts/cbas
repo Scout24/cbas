@@ -5,7 +5,18 @@ import json
 import getpass
 import os
 
-auth_url = ''
+
+def obtain_access_token(auth_url, username, password):
+    auth_request_data = {'client_id': 'jumpauth',
+                         'client_secret': '',
+                         'username': username,
+                         'password': password,
+                         'grant_type': 'password'}
+    auth_response = requests.post(auth_url, auth_request_data)
+    auth_response.raise_for_status()
+    access_token = auth_response.json()['access_token']
+    click.echo("Access token: '{0}'".format(access_token))
+    return access_token
 
 
 @click.group()
@@ -14,6 +25,7 @@ def main():
 
 
 @main.command()
+@click.option('--auth-url')
 @click.option('--username')
 @click.option('--sshkey')
 @click.option('--password', prompt=True, hide_input=True)
@@ -36,15 +48,9 @@ def upload(**kwargs):
     print(username)
     print(ssh_key)
 
-    auth_request_data = {'client_id': 'jumpauth',
-                         'client_secret': '',
-                         'username': username,
-                         'password': kwargs['password'],
-                         'grant_type': 'password'}
-    auth_response = requests.post(auth_url, auth_request_data)
-    auth_response.raise_for_status()
-    access_token = auth_response.json()['access_token']
-    print("Access token: '{0}'".format(access_token))
+    auth_url = kwargs['auth-url']
+    password = kwargs['kwargs']
+    access_token = obtain_access_token(auth_url, username, password)
 
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
