@@ -9,9 +9,9 @@ import requests
 from cbas.password_providers import get_password
 
 
-def obtain_access_token(auth_url, username, password):
+def obtain_access_token(auth_url, client_secret, username, password):
     auth_request_data = {'client_id': 'jumpauth',
-                         'client_secret': '',
+                         'client_secret': client_secret,
                          'username': username,
                          'password': password,
                          'grant_type': 'password'}
@@ -76,12 +76,17 @@ def upload(**kwargs):
 @click.argument('jumphost')
 @click.option('--password-provider')
 def delete(**kwargs):
+
+    client_secret = kwargs['client_secret']
+    auth_url = kwargs['auth_url']
+
     username = get_username(kwargs)
-    print(kwargs)
     password_provider = kwargs.get('password_provider') or 'prompt'
     password = get_password(password_provider, username)
-    auth_url = kwargs['auth-url']
-    access_token = obtain_access_token(auth_url, username, password)
+
+    access_token = obtain_access_token(
+        auth_url, client_secret, username, password)
+
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
                            'Cache-Control': 'no-cache'}
