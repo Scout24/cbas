@@ -10,9 +10,9 @@ auth_url = ''
 
 @click.command()
 @click.option('--username')
-@click.option('--jumphost')
 @click.option('--sshkey')
 @click.option('--password', prompt=True, hide_input=True)
+@click.argument('jumphost')
 def main(**kwargs):
     if not kwargs['sshkey']:
         ssh_key_path = os.environ['HOME'] + '/.ssh/id_rsa.pub'
