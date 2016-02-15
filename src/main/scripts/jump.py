@@ -1,0 +1,65 @@
+#!/usr/bin/env python
+import click
+import requests
+import json
+import getpass
+import os
+
+auth_url = ''
+
+
+@click.group()
+def jump():
+    pass
+
+
+@jump.command()
+@click.option('--username')
+@click.option('--jumphost')
+@click.option('--sshkey')
+@click.option('--password', prompt=True, hide_input=True)
+def ssh(**kwargs):
+    if not kwargs['sshkey']:
+        ssh_key_path = os.environ['HOME'] + '/.ssh/id_rsa.pub'
+    else:
+        ssh_key_path = kwargs['sshkey']
+
+    ssh_key_filehandle = open(ssh_key_path, "r")
+    ssh_key = ssh_key_filehandle.readline()
+    ssh_key_filehandle.close()
+
+    if not kwargs['username']:
+        username = getpass.getuser()
+    else:
+        username = kwargs['username']
+
+    print(username)
+    print(ssh_key)
+
+    auth_request_data = {'client_id': 'jumpauth',
+                         'client_secret': '',
+                         'username': username,
+                         'password': kwargs['password'],
+                         'grant_type': 'password'}
+    auth_response = requests.post(auth_url, auth_request_data)
+    auth_response.raise_for_status()
+    access_token = auth_response.json()['access_token']
+    print("Access token: '{0}'".format(access_token))
+
+    jump_request_header = {'Authorization': 'Bearer ' + access_token,
+                           'Content-Type': 'application/json',
+                           'Cache-Control': 'no-cache'}
+    jump_request_data = json.dumps({"pubkey": ssh_key})
+    jump_url = 'https://' + kwargs['jumphost'] + '/create'
+    print(jump_url)
+
+    jump_response = requests.post(jump_url,
+                                  jump_request_data,
+                                  headers=jump_request_header)
+    jump_response.raise_for_status()
+    print(jump_response.text)
+    pass
+
+
+if __name__ == '__main__':
+    jump()
