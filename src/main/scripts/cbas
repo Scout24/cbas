@@ -59,9 +59,7 @@ def main(debug,
 def upload(config, sshkey):
     ssh_key = get_sshkey(sshkey)
     password = get_password(config.password_provider, config.username)
-
-    access_token = obtain_access_token(
-        config.auth_url, config.client_secret, config.username, password)
+    access_token = obtain_access_token(config, password)
 
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
@@ -78,11 +76,8 @@ def upload(config, sshkey):
 @main.command()
 @pass_config
 def delete(config):
-
     password = get_password(config.password_provider, config.username)
-
-    access_token = obtain_access_token(
-        config.auth_url, config.client_secret, config.username, password)
+    access_token = obtain_access_token(config, password)
 
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
