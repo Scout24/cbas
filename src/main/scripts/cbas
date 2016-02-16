@@ -5,10 +5,14 @@ import os
 
 import click
 import requests
+import yamlreader
 
-from cbas.password_providers import get_password
+from cbas.password_providers import get_password, DEFAULT_PASSWORD_PROVIDER
 from cbas.auth import obtain_access_token
 from cbas import messages
+
+
+DEFAULT_CONFIG_PATH = "~/.cbas"
 
 
 def get_username(args):
@@ -25,9 +29,32 @@ def get_sshkey(args):
 
 class CBASConfig(object):
 
+    def __init__(self,
+                 username=None,
+                 auth_url=None,
+                 client_secret=None,
+                 password_provider=DEFAULT_PASSWORD_PROVIDER
+                 ):
+        self.username = getpass.getuser()
+
+    def __str__(self):
+        return """username={username},""".format(username=self.username)
+
     @staticmethod
     def read(ctx, param, value):
-        return CBASConfig()
+        config = CBASConfig()
+        config_path = os.path.expanduser(value)
+        if os.path.exists(config_path):
+            loaded_config = yamlreader.yaml_load(config_path)
+            if 'username' in loaded_config:
+                config.username = loaded_config['username']
+            if 'auth-url' in loaded_config:
+                config.auth_url = loaded_config['auth-url']
+            if 'client-secret' in loaded_config:
+                config.client_secret = loaded_config['client-secret']
+            if 'password-provider' in loaded_config:
+                config.password_provider = loaded_config['password-provider']
+        return config
 
 
 pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
@@ -36,10 +63,10 @@ pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
 @click.group()
 @click.option('-d', '--debug', default=False, is_flag=True)
 @click.option('-c', '--config',
-              type=click.Path(exists=True, dir_okay=True),
+              type=click.Path(exists=False, file_okay=True, dir_okay=True),
               callback=CBASConfig.read,
               help='The config file/directory to use instead of the default.',
-              default="~/.cbas",
+              default=DEFAULT_CONFIG_PATH,
               )
 def main(debug, config):
     if debug:
@@ -48,11 +75,11 @@ def main(debug, config):
 
 @main.command()
 @pass_config
+@click.option('--username')
 @click.option('--auth-url')
 @click.option('--client-secret')
-@click.option('--username')
-@click.option('--sshkey')
 @click.option('--password-provider')
+@click.option('--sshkey')
 @click.argument('jumphost')
 def upload(config, **kwargs):
     print config
@@ -83,11 +110,11 @@ def upload(config, **kwargs):
 
 
 @main.command()
-@click.option('--auth-url')
 @click.option('--username')
+@click.option('--auth-url')
 @click.option('--client-secret')
-@click.argument('jumphost')
 @click.option('--password-provider')
+@click.argument('jumphost')
 def delete(**kwargs):
 
     client_secret = kwargs['client_secret']
