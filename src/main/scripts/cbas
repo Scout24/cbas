@@ -8,7 +8,7 @@ import requests
 from cbas.password_providers import get_password
 from cbas.auth_server import obtain_access_token
 from cbas.configuration import CBASConfig, DEFAULT_CONFIG_PATH, pass_config
-from cbas import log
+import cbas.log as log
 
 
 def get_sshkey(ssh_key_file):
@@ -16,8 +16,19 @@ def get_sshkey(ssh_key_file):
         return f.read()
 
 
+def print_version(ctx, param, value):
+    if not value or ctx.resilient_parsing:
+        return
+    click.echo('Version 1.0')
+    ctx.exit()
+
+
+def process_debug(ctx, param, value):
+    log.DEBUG = value
+
+
 @click.group()
-@click.option('-d', '--debug', default=False, is_flag=True)
+@click.option('-d', '--debug', default=False, is_flag=True, callback=process_debug)
 @click.option('-c', '--config',
               type=click.Path(exists=False, file_okay=True, dir_okay=True),
               callback=CBASConfig.read,
@@ -31,8 +42,6 @@ def get_sshkey(ssh_key_file):
 @click.option('--jump-host')
 @click.option('--ssh-key-file')
 def main(debug, config, **kwargs):
-    if debug:
-        log.DEBUG = True
     config.inject(kwargs)
 
 
