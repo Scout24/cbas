@@ -28,6 +28,7 @@ def keyring_get_password(username):
 
 
 def get_password(password_provider, username):
+    debug("Password provider is: '{}'".format(password_provider))
     if password_provider == PROMPT:
         password = prompt_get_password(username)
     elif password_provider == KEYRING:
