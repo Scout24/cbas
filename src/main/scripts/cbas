@@ -32,25 +32,10 @@ def get_sshkey(ssh_key_path):
 @click.option('--client-secret')
 @click.option('--password-provider')
 @click.option('--jump-host')
-def main(debug,
-         config,
-         username,
-         auth_url,
-         client_secret,
-         password_provider,
-         jump_host):
+def main(debug, config, **kwargs):
     if debug:
         log.DEBUG = True
-    if username:
-        config.username = username
-    if auth_url:
-        config.auth_url = auth_url
-    if client_secret:
-        config.client_secret = client_secret
-    if password_provider:
-        config.password_provider = password_provider
-    if jump_host:
-        config.jump_host = jump_host
+    config.inject(kwargs)
 
 
 @main.command()

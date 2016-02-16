@@ -34,7 +34,6 @@ class CBASConfig(object):
             if option in new_options and new_options[option] is not None:
                 self.__dict__[option] = new_options[option]
 
-
     @staticmethod
     def load_config(config_path):
         basic_loaded_config = yamlreader.yaml_load(config_path)
@@ -47,6 +46,7 @@ class CBASConfig(object):
         config_path = os.path.expanduser(value)
         loaded_config = config.load_config(config_path)
         config.inject(loaded_config)
+        return config
 
 
 pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
