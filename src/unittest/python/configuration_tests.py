@@ -62,3 +62,24 @@ class TestCBASConfig(unittest.TestCase):
                     'with_under_scores': 'ANY_VALUE_FIVE',
                     }
         self.assertEqual(expected, received)
+
+    @patch('os.path.exists', Mock(return_value=False))
+    def test_read_without_loading(self):
+        config = CBASConfig()
+        expected = CBASConfig()
+        mock_ctx = Mock()
+        mock_ctx.ensure_object.return_value = config
+        value = "ANY_PATH"
+        received = config.read(mock_ctx, None, value)
+        self.assertEqual(expected.username, received.username)
+
+    @patch('os.path.exists', Mock(return_value=True))
+    @patch('cbas.configuration.CBASConfig.load_config',
+           Mock(return_value={'username': "ANY_USER"}))
+    def test_read_with_loading(self):
+        config = CBASConfig()
+        mock_ctx = Mock()
+        mock_ctx.ensure_object.return_value = config
+        value = "ANY_PATH"
+        received = config.read(mock_ctx, None, value)
+        self.assertEqual("ANY_USER", received.username)
