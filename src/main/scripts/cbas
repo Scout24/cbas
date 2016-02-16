@@ -45,12 +45,18 @@ def process_debug(ctx, param, value):
               is_eager=True,
               callback=print_version,
               help="Print version and exit.")
-@click.option('-u', '--username')
-@click.option('-a', '--auth-url')
-@click.option('-s', '--client-secret')
-@click.option('-p', '--password-provider')
-@click.option('-h', '--jump-host')
-@click.option('-k', '--ssh-key-file')
+@click.option('-u', '--username',
+              help="Username.")
+@click.option('-a', '--auth-url',
+              help="Auth-server URL.")
+@click.option('-s', '--client-secret',
+              help='Special client secret, ask mum.')
+@click.option('-p', '--password-provider',
+              help="Password provider.")
+@click.option('-h', '--jump-host',
+              help="Jump host to connect with.")
+@click.option('-k', '--ssh-key-file',
+              help='SSH Identity to use.')
 def main(debug, config, **kwargs):
     config.inject(kwargs)
 
