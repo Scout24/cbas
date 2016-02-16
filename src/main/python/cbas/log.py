@@ -1,3 +1,5 @@
+import click
+
 DEBUG = False
 
 
@@ -7,9 +9,9 @@ class CMDLineExit(Exception):
 
 def debug(message):
     if DEBUG:
-        print(message)
+        click.echo(message)
 
 
 def info(message):
-    print(message)
+    click.echo(message)
 
