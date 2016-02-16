@@ -17,7 +17,7 @@ def get_username(args):
 def get_sshkey(args):
     ssh_key_path = (args['sshkey']
                     if args['sshkey']
-                    else os.expanduser('~/.ssh/id_rsa.pub'))
+                    else os.path.expanduser('~/.ssh/id_rsa.pub'))
     with open(ssh_key_path, "r") as ssh_key_filehandle:
         return ssh_key_filehandle.read()
 
