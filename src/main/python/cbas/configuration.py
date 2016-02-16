@@ -1,13 +1,13 @@
 import os
 import getpass
-import textwrap
 
 import click
 import yamlreader
 
-from cbas.password_providers import DEFAULT_PASSWORD_PROVIDER
+from cbas.password_providers import PROMPT
 
 DEFAULT_CONFIG_PATH = "~/.cbas"
+DEFAULT_PASSWORD_PROVIDER = PROMPT
 
 
 class CBASConfig(object):

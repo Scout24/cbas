@@ -8,7 +8,6 @@ PROMPT = 'prompt'
 KEYRING = 'keyring'
 TESTING = 'testing'
 PASSWORD_PROVIDERS = [PROMPT, KEYRING, TESTING]
-DEFAULT_PASSWORD_PROVIDER = PROMPT
 
 
 def prompt_get_password(username):
