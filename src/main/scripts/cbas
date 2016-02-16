@@ -9,6 +9,7 @@ from cbas.password_providers import get_password
 from cbas.auth_server import obtain_access_token
 from cbas.configuration import CBASConfig, DEFAULT_CONFIG_PATH, pass_config
 import cbas.log as log
+from cbas.log import verbose, info
 
 
 def get_sshkey(ssh_key_file):
@@ -75,10 +76,16 @@ def upload(config):
     jump_request_data = json.dumps({"pubkey": ssh_key})
     jump_url = 'https://' + config.jump_host + '/create'
 
+    info("Will now attempt to upload your ssh-key...")
     jump_response = requests.post(jump_url,
                                   jump_request_data,
                                   headers=jump_request_header)
-    jump_response.raise_for_status()
+    if log.VERBOSE:
+        jump_response.raise_for_status()
+    elif jump_response.status_code != 200:
+        log.info("Upload failed!")
+    else:
+        log.info("Upload OK!")
 
 
 @main.command(help="Delete user.")
@@ -92,8 +99,14 @@ def delete(config):
                            'Cache-Control': 'no-cache'}
     jump_url = 'https://' + config.jump_host + '/delete'
 
+    info("Will now attempt to delete your user...")
     jump_response = requests.post(jump_url, headers=jump_request_header)
-    jump_response.raise_for_status()
+    if log.VERBOSE:
+        jump_response.raise_for_status()
+    elif jump_response.status_code != 200:
+        log.info("Delete failed!")
+    else:
+        log.info("Delete OK!")
 
 if __name__ == '__main__':
     main()
