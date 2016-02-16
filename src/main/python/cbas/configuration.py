@@ -12,7 +12,6 @@ DEFAULT_CONFIG_PATH = "~/.cbas"
 
 class CBASConfig(object):
 
-    # these are all the available options in this object
     options = {'username': lambda: getpass.getuser(),
                'auth_url': None,
                'client_secret': None,
@@ -20,7 +19,6 @@ class CBASConfig(object):
                'jump_host': None,
                }
 
-    # initialize the object with defaults
     def __init__(self):
         for option, default in self.options.iteritems():
             self.__dict__[option] = (default()
