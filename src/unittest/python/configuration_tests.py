@@ -46,3 +46,19 @@ class TestCBASConfig(unittest.TestCase):
         self.assertEqual(config.password_provider, 'ANY_PROVIDER')
         self.assertEqual(config.jump_host, None)
 
+    @patch('yamlreader.yaml_load',
+           Mock(return_value={'nospecial': 'ANY_VALUE_ONE',
+                              'with-hyphen': 'ANY_VALUE_TWO',
+                              'with-many-hyphens': 'ANY_VALUE_THREE',
+                              'with_underscore': 'ANY_VALUE_FOUR',
+                              'with_under_scores': 'ANY_VALUE_FIVE',
+                              }))
+    def test_load_config(self):
+        received = CBASConfig.load_config('ANY_PATH')
+        expected = {'nospecial': 'ANY_VALUE_ONE',
+                    'with_hyphen': 'ANY_VALUE_TWO',
+                    'with_many_hyphens': 'ANY_VALUE_THREE',
+                    'with_underscore': 'ANY_VALUE_FOUR',
+                    'with_under_scores': 'ANY_VALUE_FIVE',
+                    }
+        self.assertEqual(expected, received)
