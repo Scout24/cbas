@@ -34,24 +34,28 @@ class CBASConfig(object):
                  username=None,
                  auth_url=None,
                  client_secret=None,
-                 password_provider=DEFAULT_PASSWORD_PROVIDER
+                 password_provider=DEFAULT_PASSWORD_PROVIDER,
+                 jump_host=None,
                  ):
         self.username = getpass.getuser()
         self.auth_url = auth_url
         self.client_secret = client_secret
         self.password_provider = password_provider
+        self.jump_host = jump_host
 
     def __str__(self):
         return textwrap.dedent("""
              {{'username': '{username}',
                'auth_url': '{auth_url}',
                'client_secret': '{client_secret}',
-               'password_provider': '{password_provider}'
+               'password_provider': '{password_provider}',
+               'jump_host': '{jump_host}',
              }}""").strip().replace('\n', '').format(
                  username=self.username,
                  auth_url=self.auth_url,
                  client_secret=self.client_secret,
                  password_provider=self.password_provider,
+                 jump_host=self.jump_host,
                  )
 
     @staticmethod
@@ -68,6 +72,8 @@ class CBASConfig(object):
                 config.client_secret = loaded_config['client-secret']
             if 'password-provider' in loaded_config:
                 config.password_provider = loaded_config['password-provider']
+            if 'jump-host' in loaded_config:
+                config.jump_host = loaded_config['jump-host']
         return config
 
 
@@ -86,7 +92,14 @@ pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
 @click.option('--auth-url')
 @click.option('--client-secret')
 @click.option('--password-provider')
-def main(debug, config, username, auth_url, client_secret, password_provider):
+@click.option('--jump-host')
+def main(debug,
+         config,
+         username,
+         auth_url,
+         client_secret,
+         password_provider,
+         jump_host):
     if debug:
         messages.DEBUG = True
     if username:
@@ -97,13 +110,14 @@ def main(debug, config, username, auth_url, client_secret, password_provider):
         config.client_secret = client_secret
     if password_provider:
         config.password_provider = password_provider
+    if jump_host:
+        config.jump_host = jump_host
 
 
 @main.command()
 @pass_config
 @click.option('--sshkey')
-@click.option('--jumphost')
-def upload(config, sshkey, jumphost):
+def upload(config, sshkey):
     ssh_key = get_sshkey(sshkey)
     password = get_password(config.password_provider, config.username)
 
@@ -114,7 +128,7 @@ def upload(config, sshkey, jumphost):
                            'Content-Type': 'application/json',
                            'Cache-Control': 'no-cache'}
     jump_request_data = json.dumps({"pubkey": ssh_key})
-    jump_url = 'https://' + kwargs['jumphost'] + '/create'
+    jump_url = 'https://' + config.jump_host + '/create'
 
     jump_response = requests.post(jump_url,
                                   jump_request_data,
@@ -127,7 +141,6 @@ def upload(config, sshkey, jumphost):
 @click.option('--auth-url')
 @click.option('--client-secret')
 @click.option('--password-provider')
-@click.argument('jumphost')
 def delete(**kwargs):
 
     client_secret = kwargs['client_secret']
@@ -143,7 +156,7 @@ def delete(**kwargs):
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
                            'Cache-Control': 'no-cache'}
-    jump_url = 'https://' + kwargs['jumphost'] + '/delete'
+    jump_url = 'https://' + config.jump_host + '/delete'
 
     jump_response = requests.post(jump_url, headers=jump_request_header)
     jump_response.raise_for_status()
