@@ -71,7 +71,7 @@ class TestCBASConfig(unittest.TestCase):
         mock_ctx.ensure_object.return_value = config
         value = "ANY_PATH"
         received = config.read(mock_ctx, None, value)
-        self.assertEqual(expected.username, received.username)
+        self.assertEqual(expected, received)
 
     @patch('os.path.exists', Mock(return_value=True))
     @patch('cbas.configuration.CBASConfig.load_config',
@@ -82,4 +82,6 @@ class TestCBASConfig(unittest.TestCase):
         mock_ctx.ensure_object.return_value = config
         value = "ANY_PATH"
         received = config.read(mock_ctx, None, value)
-        self.assertEqual("ANY_USER", received.username)
+        expected = CBASConfig()
+        expected.username = "ANY_USER"
+        self.assertEqual(expected, received)
