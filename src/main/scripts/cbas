@@ -24,7 +24,10 @@ def get_sshkey(args):
 
 
 class CBASConfig(object):
-    pass
+
+    @staticmethod
+    def read(ctx, param, value):
+        return CBASConfig()
 
 
 pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
@@ -34,10 +37,11 @@ pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
 @click.option('-d', '--debug', default=False, is_flag=True)
 @click.option('-c', '--config',
               type=click.Path(exists=True, dir_okay=True),
+              callback=CBASConfig.read,
               expose_value=False,
               help='The config file/directory to use instead of the default.',
               default="~/.cbas",
-             )
+              )
 def main(debug):
     if debug:
         messages.DEBUG = True
