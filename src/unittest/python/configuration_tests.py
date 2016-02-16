@@ -14,6 +14,7 @@ class TestCBASConfig(unittest.TestCase):
         self.assertEqual(config.client_secret, None)
         self.assertEqual(config.password_provider, 'prompt')
         self.assertEqual(config.jump_host, None)
+        self.assertEqual(config.ssh_key_file, '~/.ssh/id_rsa.pub')
 
     @patch('getpass.getuser', Mock(return_value='ANY_USER'))
     def test_str_defaults(self):
@@ -22,7 +23,8 @@ class TestCBASConfig(unittest.TestCase):
                         "'auth_url': None, "
                         "'client_secret': None, "
                         "'password_provider': 'prompt', "
-                        "'jump_host': None}"
+                        "'jump_host': None,"
+                        "'ssh_key_file': '~/.ssh/id_rsa.pub'}"
                         )
         received = eval(str(config))
         self.assertEqual(expected, received)

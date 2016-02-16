@@ -7,24 +7,17 @@
   Usage: cbas [OPTIONS] COMMAND [ARGS]...
   
   Options:
-    --help  Show this message and exit.
+    -d, --debug                   Activate debug mode.
+    -c, --config PATH             Path to config file.
+    -v, --version                 Print version and exit.
+    -u, --username TEXT           Username.
+    -a, --auth-url TEXT           Auth-server URL.
+    -s, --client-secret TEXT      Special client secret, ask mum.
+    -p, --password-provider TEXT  Password provider.
+    -h, --jump-host TEXT          Jump host to connect with.
+    -k, --ssh-key-file TEXT       SSH Identity to use.
+    --help                        Show this message and exit.
   
   Commands:
-    delete
-    upload
-
-  $ cbas
-  Usage: cbas [OPTIONS] COMMAND [ARGS]...
-  
-  Options:
-    --help  Show this message and exit.
-  
-  Commands:
-    delete
-    upload
-
-  $ cbas upload
-  Usage: cbas upload [OPTIONS] JUMPHOST
-  
-  Error: Missing argument "jumphost".
-  [2]
+    delete  Delete user.
+    upload  Upload ssh-key and create user
