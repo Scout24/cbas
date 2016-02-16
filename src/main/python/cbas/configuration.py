@@ -12,33 +12,24 @@ DEFAULT_CONFIG_PATH = "~/.cbas"
 
 class CBASConfig(object):
 
-    def __init__(self,
-                 username=None,
-                 auth_url=None,
-                 client_secret=None,
-                 password_provider=DEFAULT_PASSWORD_PROVIDER,
-                 jump_host=None,
-                 ):
-        self.username = getpass.getuser()
-        self.auth_url = auth_url
-        self.client_secret = client_secret
-        self.password_provider = password_provider
-        self.jump_host = jump_host
+    # these are all the available options in this object
+    options = {'username': lambda: getpass.getuser(),
+               'auth_url': None,
+               'client_secret': None,
+               'password_provider': DEFAULT_PASSWORD_PROVIDER,
+               'jump_host': None,
+               }
+
+    # initialize the object with defaults
+    def __init__(self):
+        for option, default in self.options.iteritems():
+            self.__dict__[option] = (default()
+                                     if hasattr(default, '__call__')
+                                     else default)
 
     def __str__(self):
-        return textwrap.dedent("""
-             {{'username': '{username}',
-               'auth_url': '{auth_url}',
-               'client_secret': '{client_secret}',
-               'password_provider': '{password_provider}',
-               'jump_host': '{jump_host}',
-             }}""").strip().replace('\n', '').format(
-                 username=self.username,
-                 auth_url=self.auth_url,
-                 client_secret=self.client_secret,
-                 password_provider=self.password_provider,
-                 jump_host=self.jump_host,
-                 )
+        return str(dict(((option, self.__dict__[option])
+                         for option in self.options)))
 
     @staticmethod
     def read(ctx, param, value):

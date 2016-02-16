@@ -15,3 +15,14 @@ class TestCBASConfig(unittest.TestCase):
         self.assertEqual(config.password_provider, 'prompt')
         self.assertEqual(config.jump_host, None)
 
+    @patch('getpass.getuser', Mock(return_value='ANY_USER'))
+    def test_str_defaults(self):
+        config = CBASConfig()
+        expected = eval("{'username': 'ANY_USER', "
+                        "'auth_url': None, "
+                        "'client_secret': None, "
+                        "'password_provider': 'prompt', "
+                        "'jump_host': None}"
+                        )
+        received = eval(str(config))
+        self.assertEqual(expected, received)
