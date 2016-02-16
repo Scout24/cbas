@@ -7,19 +7,7 @@ import click
 import requests
 
 from cbas.password_providers import get_password
-
-
-def obtain_access_token(auth_url, client_secret, username, password):
-    auth_request_data = {'client_id': 'jumpauth',
-                         'client_secret': client_secret,
-                         'username': username,
-                         'password': password,
-                         'grant_type': 'password'}
-    auth_response = requests.post(auth_url, auth_request_data)
-    auth_response.raise_for_status()
-    access_token = auth_response.json()['access_token']
-    click.echo("Access token: '{0}'".format(access_token))
-    return access_token
+from cbas.auth import obtain_access_token
 
 
 def get_username(args):
