@@ -8,6 +8,7 @@ import requests
 
 from cbas.password_providers import get_password
 from cbas.auth import obtain_access_token
+from cbas import messages
 
 
 def get_username(args):
@@ -23,18 +24,22 @@ def get_sshkey(args):
 
 
 @click.group()
-def main(**kwargs):
-    pass
+@click.option('-d', '--debug', default=False, is_flag=True)
+@click.pass_context
+def main(ctx, debug):
+    if debug:
+        messages.DEBUG = True
 
 
 @main.command()
+@click.pass_context
 @click.option('--auth-url')
 @click.option('--client-secret')
 @click.option('--username')
 @click.option('--sshkey')
-@click.argument('jumphost')
 @click.option('--password-provider')
-def upload(**kwargs):
+@click.argument('jumphost')
+def upload(ctx, **kwargs):
     print(kwargs)
     client_secret = kwargs['client_secret']
     auth_url = kwargs['auth_url']
