@@ -26,3 +26,21 @@ class TestCBASConfig(unittest.TestCase):
                         )
         received = eval(str(config))
         self.assertEqual(expected, received)
+
+    @patch('getpass.getuser', Mock(return_value='NO_USER'))
+    def test_inject(self):
+        config = CBASConfig()
+        to_inject = {
+            'username': 'ANY_USER',
+            'auth_url': 'ANY_URL',
+            'client_secret': 'ANY_SECRET',
+            'password_provider': 'ANY_PROVIDER',
+            # exclude jump_host to make sure it remains None
+        }
+        config.inject(to_inject)
+        self.assertEqual(config.username, 'ANY_USER')
+        self.assertEqual(config.auth_url, 'ANY_URL')
+        self.assertEqual(config.client_secret, 'ANY_SECRET')
+        self.assertEqual(config.password_provider, 'ANY_PROVIDER')
+        self.assertEqual(config.jump_host, None)
+

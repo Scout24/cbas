@@ -29,23 +29,24 @@ class CBASConfig(object):
         return str(dict(((option, self.__dict__[option])
                          for option in self.options)))
 
+    def inject(self, new_options):
+        for option in self.options:
+            if option in new_options and new_options[option] is not None:
+                self.__dict__[option] = new_options[option]
+
+
+    @staticmethod
+    def load_config(config_path):
+        basic_loaded_config = yamlreader.yaml_load(config_path)
+        return dict(((k.replace('-', '_'), v)
+                     for k, v in basic_loaded_config.iteritems()))
+
     @staticmethod
     def read(ctx, param, value):
         config = ctx.ensure_object(CBASConfig)
         config_path = os.path.expanduser(value)
-        if os.path.exists(config_path):
-            loaded_config = yamlreader.yaml_load(config_path)
-            if 'username' in loaded_config:
-                config.username = loaded_config['username']
-            if 'auth-url' in loaded_config:
-                config.auth_url = loaded_config['auth-url']
-            if 'client-secret' in loaded_config:
-                config.client_secret = loaded_config['client-secret']
-            if 'password-provider' in loaded_config:
-                config.password_provider = loaded_config['password-provider']
-            if 'jump-host' in loaded_config:
-                config.jump_host = loaded_config['jump-host']
-        return config
+        loaded_config = config.load_config(config_path)
+        config.inject(loaded_config)
 
 
 pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
