@@ -137,21 +137,13 @@ def upload(config, sshkey):
 
 
 @main.command()
-@click.option('--username')
-@click.option('--auth-url')
-@click.option('--client-secret')
-@click.option('--password-provider')
-def delete(**kwargs):
+@pass_config
+def delete(config):
 
-    client_secret = kwargs['client_secret']
-    auth_url = kwargs['auth_url']
-
-    username = get_username(kwargs)
-    password_provider = kwargs.get('password_provider') or 'prompt'
-    password = get_password(password_provider, username)
+    password = get_password(config.password_provider, config.username)
 
     access_token = obtain_access_token(
-        auth_url, client_secret, username, password)
+        config.auth_url, config.client_secret, config.username, password)
 
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
