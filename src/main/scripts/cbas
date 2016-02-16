@@ -38,11 +38,10 @@ pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
 @click.option('-c', '--config',
               type=click.Path(exists=True, dir_okay=True),
               callback=CBASConfig.read,
-              expose_value=False,
               help='The config file/directory to use instead of the default.',
               default="~/.cbas",
               )
-def main(debug):
+def main(debug, config):
     if debug:
         messages.DEBUG = True
 
