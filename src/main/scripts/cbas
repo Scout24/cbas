@@ -2,6 +2,7 @@
 import json
 import getpass
 import os
+import textwrap
 
 import click
 import requests
@@ -36,9 +37,22 @@ class CBASConfig(object):
                  password_provider=DEFAULT_PASSWORD_PROVIDER
                  ):
         self.username = getpass.getuser()
+        self.auth_url = auth_url
+        self.client_secret = client_secret
+        self.password_provider = password_provider
 
     def __str__(self):
-        return """username={username},""".format(username=self.username)
+        return textwrap.dedent("""
+             {{'username': '{username}',
+               'auth_url': '{auth_url}',
+               'client_secret': '{client_secret}',
+               'password_provider': '{password_provider}'
+             }}""").strip().replace('\n', '').format(
+                 username=self.username,
+                 auth_url=self.auth_url,
+                 client_secret=self.client_secret,
+                 password_provider=self.password_provider,
+                 )
 
     @staticmethod
     def read(ctx, param, value):
