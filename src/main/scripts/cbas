@@ -11,12 +11,9 @@ from cbas.configuration import CBASConfig, DEFAULT_CONFIG_PATH, pass_config
 from cbas import log
 
 
-def get_sshkey(ssh_key_path):
-    ssh_key_path = (ssh_key_path
-                    if ssh_key_path
-                    else os.path.expanduser('~/.ssh/id_rsa.pub'))
-    with open(ssh_key_path, "r") as ssh_key_filehandle:
-        return ssh_key_filehandle.read()
+def get_sshkey(ssh_key_file):
+    with open(os.path.expanduser(ssh_key_file), "r") as f:
+        return f.read()
 
 
 @click.group()
@@ -32,6 +29,7 @@ def get_sshkey(ssh_key_path):
 @click.option('--client-secret')
 @click.option('--password-provider')
 @click.option('--jump-host')
+@click.option('--ssh-key-file')
 def main(debug, config, **kwargs):
     if debug:
         log.DEBUG = True
@@ -40,9 +38,8 @@ def main(debug, config, **kwargs):
 
 @main.command()
 @pass_config
-@click.option('--sshkey')
-def upload(config, sshkey):
-    ssh_key = get_sshkey(sshkey)
+def upload(config):
+    ssh_key = get_sshkey(config.ssh_key_file)
     password = get_password(config.password_provider, config.username)
     access_token = obtain_access_token(config, password)
 

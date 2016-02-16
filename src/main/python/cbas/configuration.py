@@ -8,6 +8,7 @@ from cbas.password_providers import PROMPT
 
 DEFAULT_CONFIG_PATH = "~/.cbas"
 DEFAULT_PASSWORD_PROVIDER = PROMPT
+DEFAULT_SSH_KEY_FILE = '~/.ssh/id_rsa.pub'
 
 
 class CBASConfig(object):
@@ -17,6 +18,7 @@ class CBASConfig(object):
                'client_secret': None,
                'password_provider': DEFAULT_PASSWORD_PROVIDER,
                'jump_host': None,
+               'ssh_key_file': DEFAULT_SSH_KEY_FILE
                }
 
     def __init__(self):
