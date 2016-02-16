@@ -23,15 +23,16 @@ def print_version(ctx, param, value):
     ctx.exit()
 
 
-def process_debug(ctx, param, value):
-    log.DEBUG = value
+def process_verbose(ctx, param, value):
+    log.VERBOSE = value
 
 
 @click.group()
-@click.option('-d', '--debug',
+@click.option('-v', '--verbose',
               is_flag=True,
-              callback=process_debug,
-              help="Activate debug mode."
+              expose_value=False,
+              callback=process_verbose,
+              help="Activate verbose mode."
               )
 @click.option('-c', '--config',
               type=click.Path(exists=False, file_okay=True, dir_okay=True),
@@ -39,12 +40,6 @@ def process_debug(ctx, param, value):
               help='Path to config file.',
               default=DEFAULT_CONFIG_PATH,
               )
-@click.option('-v', '--version',
-              is_flag=True,
-              expose_value=False,
-              is_eager=True,
-              callback=print_version,
-              help="Print version and exit.")
 @click.option('-u', '--username',
               help="Username.")
 @click.option('-a', '--auth-url',
@@ -57,7 +52,13 @@ def process_debug(ctx, param, value):
               help="Jump host to connect with.")
 @click.option('-k', '--ssh-key-file',
               help='SSH Identity to use.')
-def main(debug, config, **kwargs):
+@click.option('--version',
+              is_flag=True,
+              expose_value=False,
+              is_eager=True,
+              callback=print_version,
+              help="Print version and exit.")
+def main(config, **kwargs):
     config.inject(kwargs)
 
 

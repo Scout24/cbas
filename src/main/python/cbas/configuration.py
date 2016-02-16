@@ -6,7 +6,7 @@ import click
 import yamlreader
 
 from cbas.password_providers import PROMPT
-from cbas.log import debug
+from cbas.log import verbose
 
 DEFAULT_CONFIG_PATH = "~/.cbas"
 DEFAULT_PASSWORD_PROVIDER = PROMPT
@@ -30,7 +30,7 @@ class CBASConfig(object):
             self.__dict__[option] = (default()
                                      if hasattr(default, '__call__')
                                      else default)
-        debug("Default config is:\n{0}".format(self))
+        verbose("Default config is:\n{0}".format(self))
 
     def __str__(self):
         return pp.pformat(dict(((option, self.__dict__[option])
@@ -52,12 +52,12 @@ class CBASConfig(object):
         config = ctx.ensure_object(CBASConfig)
         config_path = os.path.expanduser(value)
         if os.path.exists(config_path):
-            debug("Config path is: {0}".format(config_path))
+            verbose("Config path is: {0}".format(config_path))
             loaded_config = config.load_config(config_path)
-            debug("Loaded values from config file are:\n{0}".
-                  format(pp.pformat(loaded_config)))
+            verbose("Loaded values from config file are:\n{0}".
+                    format(pp.pformat(loaded_config)))
             config.inject(loaded_config)
-            debug("Processed config after loading:\n{0}".format(config))
+            verbose("Processed config after loading:\n{0}".format(config))
         return config
 
 

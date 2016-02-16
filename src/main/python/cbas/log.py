@@ -1,14 +1,14 @@
 import click
 
-DEBUG = False
+VERBOSE = False
 
 
 class CMDLineExit(Exception):
     pass
 
 
-def debug(message):
-    if DEBUG:
+def verbose(message):
+    if VERBOSE:
         click.echo(message)
 
 

@@ -2,7 +2,7 @@ import getpass
 
 import keyring
 
-from cbas.log import CMDLineExit, debug, info
+from cbas.log import CMDLineExit, verbose, info
 
 PROMPT = 'prompt'
 KEYRING = 'keyring'
@@ -18,7 +18,7 @@ def prompt_get_password(username):
 def keyring_get_password(username):
 
     keyring_impl = keyring.get_keyring()
-    debug("Note: will use the backend: '{0}'".format(keyring_impl))
+    verbose("Note: will use the backend: '{0}'".format(keyring_impl))
     password = keyring.get_password('cbas', username)
     if not password:
         info("No password found in keychain, please enter it now to store it.")
@@ -28,7 +28,7 @@ def keyring_get_password(username):
 
 
 def get_password(password_provider, username):
-    debug("Password provider is: '{}'".format(password_provider))
+    verbose("Password provider is: '{}'".format(password_provider))
     if password_provider == PROMPT:
         password = prompt_get_password(username)
     elif password_provider == KEYRING:

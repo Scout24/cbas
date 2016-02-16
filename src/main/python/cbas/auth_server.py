@@ -1,10 +1,10 @@
-from cbas.log import debug
+from cbas.log import verbose
 
 import requests
 
 
 def obtain_access_token(config, password):
-    debug("Will now attempt to obtain an JWT...")
+    verbose("Will now attempt to obtain an JWT...")
     auth_request_data = {'client_id': 'jumpauth',
                          'client_secret': config.client_secret,
                          'username': config.username,
@@ -13,5 +13,5 @@ def obtain_access_token(config, password):
     auth_response = requests.post(config.auth_url, auth_request_data)
     auth_response.raise_for_status()
     access_token = auth_response.json()['access_token']
-    debug("Access token is:\n'{0}'".format(access_token))
+    verbose("Access token is:\n'{0}'".format(access_token))
     return access_token
