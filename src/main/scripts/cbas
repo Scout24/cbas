@@ -28,11 +28,15 @@ def process_debug(ctx, param, value):
 
 
 @click.group()
-@click.option('-d', '--debug', default=False, is_flag=True, callback=process_debug)
+@click.option('-d', '--debug',
+              is_flag=True,
+              callback=process_debug,
+              help="Activate debug mode."
+              )
 @click.option('-c', '--config',
               type=click.Path(exists=False, file_okay=True, dir_okay=True),
               callback=CBASConfig.read,
-              help='The config file/directory to use instead of the default.',
+              help='Path to config file.',
               default=DEFAULT_CONFIG_PATH,
               )
 @click.option('-v', '--version',
@@ -40,7 +44,7 @@ def process_debug(ctx, param, value):
               expose_value=False,
               is_eager=True,
               callback=print_version,
-              help="Print version and exit")
+              help="Print version and exit.")
 @click.option('--username')
 @click.option('--auth-url')
 @click.option('--client-secret')
@@ -51,7 +55,7 @@ def main(debug, config, **kwargs):
     config.inject(kwargs)
 
 
-@main.command()
+@main.command(help="Create user and upload ssh-key.")
 @pass_config
 def upload(config):
     ssh_key = get_sshkey(config.ssh_key_file)
@@ -70,9 +74,9 @@ def upload(config):
     jump_response.raise_for_status()
 
 
-@main.command()
+@main.command(help="Delete user.")
 @pass_config
-def delete(config):
+def create(config):
     password = get_password(config.password_provider, config.username)
     access_token = obtain_access_token(config, password)
 
