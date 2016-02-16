@@ -32,14 +32,13 @@ def main(ctx, debug):
 
 
 @main.command()
-@click.pass_context
 @click.option('--auth-url')
 @click.option('--client-secret')
 @click.option('--username')
 @click.option('--sshkey')
 @click.option('--password-provider')
 @click.argument('jumphost')
-def upload(ctx, **kwargs):
+def upload(**kwargs):
     print(kwargs)
     client_secret = kwargs['client_secret']
     auth_url = kwargs['auth_url']
