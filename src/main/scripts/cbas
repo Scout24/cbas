@@ -42,7 +42,7 @@ def upload(**kwargs):
 
     username = get_username(kwargs)
     ssh_key = get_sshkey(kwargs)
-    password_provider = kwargs.get('password_provider') or 'prompt'
+    password_provider = kwargs['password_provider'] or 'prompt'
     password = get_password(password_provider, username)
 
     access_token = obtain_access_token(
