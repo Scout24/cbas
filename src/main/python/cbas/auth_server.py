@@ -14,3 +14,4 @@ def obtain_access_token(config, password):
     auth_response.raise_for_status()
     access_token = auth_response.json()['access_token']
     debug("Access token is:\n'{0}'".format(access_token))
+    return access_token
