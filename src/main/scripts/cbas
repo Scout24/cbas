@@ -23,22 +23,36 @@ def get_sshkey(args):
         return ssh_key_filehandle.read()
 
 
+class CBASConfig(object):
+    pass
+
+
+pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
+
+
 @click.group()
 @click.option('-d', '--debug', default=False, is_flag=True)
-@click.pass_context
-def main(ctx, debug):
+@click.option('-c', '--config',
+              type=click.Path(exists=True, dir_okay=True),
+              expose_value=False,
+              help='The config file/directory to use instead of the default.',
+              default="~/.cbas",
+             )
+def main(debug):
     if debug:
         messages.DEBUG = True
 
 
 @main.command()
+@pass_config
 @click.option('--auth-url')
 @click.option('--client-secret')
 @click.option('--username')
 @click.option('--sshkey')
 @click.option('--password-provider')
 @click.argument('jumphost')
-def upload(**kwargs):
+def upload(config, **kwargs):
+    print config
     print(kwargs)
     client_secret = kwargs['client_secret']
     auth_url = kwargs['auth_url']
