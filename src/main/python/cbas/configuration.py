@@ -1,3 +1,4 @@
+import collections
 import os
 import getpass
 import pprint
@@ -15,7 +16,7 @@ DEFAULT_SSH_KEY_FILE = '~/.ssh/id_rsa.pub'
 pp = pprint.PrettyPrinter(indent=4)
 
 
-class CBASConfig(object):
+class CBASConfig(collections.MutableMapping):
 
     options = {'username': lambda: getpass.getuser(),
                'auth_url': None,
@@ -27,19 +28,43 @@ class CBASConfig(object):
 
     def __init__(self):
         for option, default in self.options.iteritems():
-            self.__dict__[option] = (default()
-                                     if hasattr(default, '__call__')
-                                     else default)
+            self[option] = (default()
+                            if hasattr(default, '__call__')
+                            else default)
         verbose("Default config is:\n{0}".format(self))
 
     def __str__(self):
-        return pp.pformat(dict(((option, self.__dict__[option])
-                          for option in self.options)))
+        return pp.pformat(dict(self))
+
+    @property
+    def _class_name(self):
+        return type(self).__name__
+
+    def __getitem__(self, key):
+        if key not in self.options:
+            raise KeyError('%s not in %s' % (key, self._class_name))
+        return getattr(self, key)
+
+    def __setitem__(self, key, value):
+        if key not in self.options:
+            raise KeyError('%s not in %s' % (key, self._class_name))
+        setattr(self, key, value)
+
+    def __delitem__(self, key):
+        raise NotImplementedError(
+            '%s does not support __delitem__ or derivatives'
+            % self._class_name)
+
+    def __len__(self):
+        return len(self.options)
+
+    def __iter__(self):
+        return iter(self.options)
 
     def inject(self, new_options):
         for option in self.options:
             if option in new_options and new_options[option] is not None:
-                self.__dict__[option] = new_options[option]
+                self[option] = new_options[option]
 
     @staticmethod
     def load_config(config_path):
