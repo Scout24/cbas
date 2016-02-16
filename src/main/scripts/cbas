@@ -61,7 +61,7 @@ def main(debug, config, **kwargs):
     config.inject(kwargs)
 
 
-@main.command(help="Create user and upload ssh-key.")
+@main.command(help="Upload ssh-key and create user")
 @pass_config
 def upload(config):
     ssh_key = get_sshkey(config.ssh_key_file)
