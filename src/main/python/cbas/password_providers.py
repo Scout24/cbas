@@ -2,7 +2,7 @@ import getpass
 
 import keyring
 
-from cbas.messages import CMDLineExit, debug, info
+from cbas.log import CMDLineExit, debug, info
 
 PROMPT = 'prompt'
 KEYRING = 'keyring'
