@@ -20,9 +20,9 @@ def get_username(args):
     return args['username'] if args['username'] else getpass.getuser()
 
 
-def get_sshkey(args):
-    ssh_key_path = (args['sshkey']
-                    if args['sshkey']
+def get_sshkey(ssh_key_path):
+    ssh_key_path = (ssh_key_path
+                    if ssh_key_path
                     else os.path.expanduser('~/.ssh/id_rsa.pub'))
     with open(ssh_key_path, "r") as ssh_key_filehandle:
         return ssh_key_filehandle.read()
@@ -56,7 +56,7 @@ class CBASConfig(object):
 
     @staticmethod
     def read(ctx, param, value):
-        config = CBASConfig()
+        config = ctx.ensure_object(CBASConfig)
         config_path = os.path.expanduser(value)
         if os.path.exists(config_path):
             loaded_config = yamlreader.yaml_load(config_path)
@@ -82,45 +82,44 @@ pass_config = click.make_pass_decorator(CBASConfig, ensure=True)
               help='The config file/directory to use instead of the default.',
               default=DEFAULT_CONFIG_PATH,
               )
-def main(debug, config):
-    if debug:
-        messages.DEBUG = True
-
-
-@main.command()
-@pass_config
 @click.option('--username')
 @click.option('--auth-url')
 @click.option('--client-secret')
 @click.option('--password-provider')
-@click.option('--sshkey')
-@click.argument('jumphost')
-def upload(config, **kwargs):
-    print config
-    print(kwargs)
-    client_secret = kwargs['client_secret']
-    auth_url = kwargs['auth_url']
+def main(debug, config, username, auth_url, client_secret, password_provider):
+    if debug:
+        messages.DEBUG = True
+    if username:
+        config.username = username
+    if auth_url:
+        config.auth_url = auth_url
+    if client_secret:
+        config.client_secret = client_secret
+    if password_provider:
+        config.password_provider = password_provider
 
-    username = get_username(kwargs)
-    ssh_key = get_sshkey(kwargs)
-    password_provider = kwargs['password_provider'] or 'prompt'
-    password = get_password(password_provider, username)
+
+@main.command()
+@pass_config
+@click.option('--sshkey')
+@click.option('--jumphost')
+def upload(config, sshkey, jumphost):
+    ssh_key = get_sshkey(sshkey)
+    password = get_password(config.password_provider, config.username)
 
     access_token = obtain_access_token(
-        auth_url, client_secret, username, password)
+        config.auth_url, config.client_secret, config.username, password)
 
     jump_request_header = {'Authorization': 'Bearer ' + access_token,
                            'Content-Type': 'application/json',
                            'Cache-Control': 'no-cache'}
     jump_request_data = json.dumps({"pubkey": ssh_key})
     jump_url = 'https://' + kwargs['jumphost'] + '/create'
-    print(jump_url)
 
     jump_response = requests.post(jump_url,
                                   jump_request_data,
                                   headers=jump_request_header)
     jump_response.raise_for_status()
-    print(jump_response.text)
 
 
 @main.command()
