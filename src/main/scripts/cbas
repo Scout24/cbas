@@ -80,10 +80,10 @@ def upload(config):
     jump_response = requests.post(jump_url,
                                   jump_request_data,
                                   headers=jump_request_header)
-    if log.VERBOSE:
-        jump_response.raise_for_status()
-    if jump_response.status_code != 200:
+    if jump_response.status_code not in [200, 201]:
         log.info("Upload failed!")
+        if log.VERBOSE:
+            jump_response.raise_for_status()
     else:
         log.info("Upload OK!")
 
