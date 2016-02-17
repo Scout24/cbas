@@ -81,7 +81,7 @@ def upload(config):
                                   jump_request_data,
                                   headers=jump_request_header)
     if jump_response.status_code not in [200, 201]:
-        log.info("Upload failed!")
+        log.info("Upload failed: {0}".format(jump_response.json().get("error")))
         if log.VERBOSE:
             jump_response.raise_for_status()
     else:
