@@ -2,6 +2,17 @@
 cbas - command line interface to the c-bastion
 ==============================================
 
+.. image:: https://travis-ci.org/ImmobilienScout24/cbas.png?branch=master
+   :alt: Travis build status image
+   :target: https://travis-ci.org/ImmobilienScout24/cbas
+
+.. image:: https://coveralls.io/repos/ImmobilienScout24/cbas/badge.png?branch=master
+    :alt: Coverage status
+    :target: https://coveralls.io/r/ImmobilienScout24/cbas?branch=master
+
+.. image:: https://img.shields.io/pypi/v/cbas.svg
+   :alt: Version
+   :target: https://pypi.python.org/pypi/cbas
 
 License
 =======
