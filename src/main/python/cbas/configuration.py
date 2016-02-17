@@ -27,7 +27,7 @@ class CBASConfig(collections.MutableMapping):
                }
 
     def __init__(self):
-        for option, default in self.options.iteritems():
+        for option, default in self.options.items():
             self[option] = (default()
                             if hasattr(default, '__call__')
                             else default)
@@ -70,7 +70,7 @@ class CBASConfig(collections.MutableMapping):
     def load_config(config_path):
         basic_loaded_config = yamlreader.yaml_load(config_path)
         return dict(((k.replace('-', '_'), v)
-                     for k, v in basic_loaded_config.iteritems()))
+                     for k, v in basic_loaded_config.items()))
 
     @staticmethod
     def read(ctx, param, value):
