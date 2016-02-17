@@ -1,11 +1,17 @@
-import unittest
-from mock import patch, Mock
+import sys
 
-import urlparse
+import unittest
+from mock import Mock
 
 import requests_mock
 
 from cbas.auth_server import obtain_access_token
+
+if sys.version_info[0] == 3:
+    from urllib.parse import parse_qs
+else:
+    from urlparse import parse_qs
+
 
 class TestObtainAccessToken(unittest.TestCase):
 
@@ -18,7 +24,7 @@ class TestObtainAccessToken(unittest.TestCase):
         cmock.auth_url = "https://ANY_URL.example"
         result = obtain_access_token(cmock, 'ANY_PASSWORD')
         self.assertEqual('ANY_TOKEN', result)
-        received_post_data = urlparse.parse_qs(rmock.request_history[0].text)
+        received_post_data = parse_qs(rmock.request_history[0].text)
         expected_post_data = {u'username': [u'ANY_USERNAME'],
                               u'client_secret': [u'ANY_SECRET'],
                               u'password': [u'ANY_PASSWORD'],
