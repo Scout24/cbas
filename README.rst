@@ -6,9 +6,9 @@ cbas - command line interface to the c-bastion
    :alt: Travis build status image
    :target: https://travis-ci.org/ImmobilienScout24/cbas
 
-.. image:: https://coveralls.io/repos/ImmobilienScout24/cbas/badge.png?branch=master
+.. image:: https://coveralls.io/repos/github/ImmobilienScout24/cbas/badge.svg?branch=master
     :alt: Coverage status
-    :target: https://coveralls.io/r/ImmobilienScout24/cbas?branch=master
+    :target: https://coveralls.io/github/ImmobilienScout24/cbas?branch=master
 
 .. image:: https://img.shields.io/pypi/v/cbas.svg
    :alt: Version
