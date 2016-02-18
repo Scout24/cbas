@@ -5,7 +5,6 @@ from cbas.configuration import CBASConfig
 
 
 class TestCBASConfig(unittest.TestCase):
-
     @patch('getpass.getuser', Mock(return_value='ANY_USER'))
     def test_default_initialization(self):
         config = CBASConfig()
@@ -18,15 +17,14 @@ class TestCBASConfig(unittest.TestCase):
 
     @patch('getpass.getuser', Mock(return_value='ANY_USER'))
     def test_str_defaults(self):
-        config = CBASConfig()
-        expected = eval("{'username': 'ANY_USER', "
-                        "'auth_url': None, "
-                        "'client_secret': None, "
-                        "'password_provider': 'prompt', "
-                        "'jump_host': None,"
-                        "'ssh_key_file': '~/.ssh/id_rsa.pub'}"
-                        )
-        received = eval(str(config))
+        received = CBASConfig()
+        expected = {'username': 'ANY_USER',
+                    'auth_url': None,
+                    'client_secret': None,
+                    'password_provider': 'prompt',
+                    'jump_host': None,
+                    'ssh_key_file': '~/.ssh/id_rsa.pub'}
+
         self.assertEqual(expected, received)
 
     @patch('getpass.getuser', Mock(return_value='NO_USER'))
