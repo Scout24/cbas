@@ -1,7 +1,7 @@
 import unittest
 from mock import patch, Mock
 
-from cbas.configuration import CBASConfig
+from cbas.configuration import CBASConfig, MissingConfigValues, UnexpectedConfigValues
 
 
 class TestCBASConfig(unittest.TestCase):
@@ -52,7 +52,8 @@ class TestCBASConfig(unittest.TestCase):
                               'with_under_scores': 'ANY_VALUE_FIVE',
                               }))
     def test_load_config(self):
-        received = CBASConfig.load_config('ANY_PATH')
+        config = CBASConfig()
+        received = config.load_config('ANY_PATH')
         expected = {'nospecial': 'ANY_VALUE_ONE',
                     'with_hyphen': 'ANY_VALUE_TWO',
                     'with_many_hyphens': 'ANY_VALUE_THREE',
@@ -83,3 +84,27 @@ class TestCBASConfig(unittest.TestCase):
         expected = CBASConfig()
         expected.username = "ANY_USER"
         self.assertEqual(expected, received)
+
+    def test_failed_for_incomplete_config(self):
+        incomplete = CBASConfig()
+        self.assertRaises(MissingConfigValues, incomplete.is_complete)
+
+    def test_success_for_complete_config(self):
+        complete_config = CBASConfig()
+        complete_config.auth_url = 'ANY_URL'
+        complete_config.client_secret = 'ANY_SECRET'
+        complete_config.jump_host = 'ANY_HOST'
+        self.assertTrue(complete_config.is_complete)
+
+    def test_failed_for_invalid_options(self):
+        config = CBASConfig()
+        loaded_option = {'invalid_option': 'invalid_value'}
+
+        self.assertRaises(UnexpectedConfigValues, config.validate_options, loaded_option)
+
+    def test_success_for_valid_options(self):
+        config = CBASConfig()
+        loaded_option = {'username': 'invalid_value'}
+        self.assertTrue(config.validate_options, loaded_option)
+
+
