@@ -7,16 +7,17 @@
   Usage: cbas [OPTIONS] COMMAND [ARGS]...
   
   Options:
-    -v, --verbose                 Activate verbose mode.
-    -c, --config PATH             Path to config file.
-    -u, --username TEXT           Username.
-    -a, --auth-url TEXT           Auth-server URL.
-    -s, --client-secret TEXT      Special client secret, ask mum.
-    -p, --password-provider TEXT  Password provider.
-    -h, --jump-host TEXT          Jump host to connect with.
-    -k, --ssh-key-file TEXT       SSH Identity to use.
-    --version                     Print version and exit.
-    --help                        Show this message and exit.
+    -v, --verbose                   Activate verbose mode.
+    -c, --config <config_path>      Path to config file.
+    -u, --username <username>       Username.
+    -a, --auth-url <auth_url>       Auth-server URL.
+    -s, --client-secret <secret>    Special client secret, ask mum.
+    -p, --password-provider <provider>
+                                    Password provider.
+    -h, --jump-host <host>          Jump host to connect with.
+    -k, --ssh-key-file <key-file>   SSH Identity to use.
+    --version                       Print version and exit.
+    --help                          Show this message and exit.
   
   Commands:
     delete  Delete user.
