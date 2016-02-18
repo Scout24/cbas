@@ -51,19 +51,26 @@ def read_wrapper(ctx, param, value):
               type=click.Path(exists=False, file_okay=True, dir_okay=True),
               callback=read_wrapper,
               help='Path to config file.',
+              metavar='<config_path>',
               default=DEFAULT_CONFIG_PATH,
               )
 @click.option('-u', '--username',
+              metavar='<username>',
               help="Username.")
 @click.option('-a', '--auth-url',
+              metavar='<auth_url>',
               help="Auth-server URL.")
 @click.option('-s', '--client-secret',
+              metavar='<secret>',
               help='Special client secret, ask mum.')
 @click.option('-p', '--password-provider',
+              metavar='<provider>',
               help="Password provider.")
 @click.option('-h', '--jump-host',
+              metavar='<host>',
               help="Jump host to connect with.")
 @click.option('-k', '--ssh-key-file',
+              metavar='<key-file>',
               help='SSH Identity to use.')
 @click.option('--version',
               is_flag=True,
