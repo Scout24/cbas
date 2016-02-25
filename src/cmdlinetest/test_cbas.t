@@ -22,3 +22,50 @@
   Commands:
     delete  Delete user.
     upload  Upload ssh-key and create user
+
+# Start the mocked auth & cbastion server
+
+  $ cp "$TESTDIR/mocked_cbastion.py" .
+  $ ./mocked_cbastion.py >/dev/null 2>&1 &
+  $ MOCK_PID=$!
+  $ echo $MOCK_PID
+  \d+ (re)
+
+# Maybe wait for the bottle server to start
+
+  $ sleep 1
+
+# Test that a HTTP 400 from the auth server raises an error
+
+  $ cbas -u return_400 -p testing -h localhost -s 5i5ptUm4LrJMyEGB -a http://localhost:8080/oauth/token upload
+  Will now attempt to obtain an JWT...
+  Authentication failed: errored with HTTP 400 on request
+  Traceback (most recent call last):
+    File "/Users/laszlokarolyi/Work/immoscout/cbas/venv3/bin/cbas", line 136, in <module>
+      main()
+    File "*site-packages/click/core.py", line 716, in __call__ (glob)
+      return self.main(*args, **kwargs)
+    File "*site-packages/click/core.py", line 696, in main (glob)
+      rv = self.invoke(ctx)
+    File "*site-packages/click/core.py", line 1060, in invoke (glob)
+      return _process_result(sub_ctx.command.invoke(sub_ctx))
+    File "*site-packages/click/core.py", line 889, in invoke (glob)
+      return ctx.invoke(self.callback, **ctx.params)
+    File "*site-packages/click/core.py", line 534, in invoke (glob)
+      return callback(*args, **kwargs)
+    File "*site-packages/click/decorators.py", line 64, in new_func (glob)
+      return ctx.invoke(f, obj, *args[1:], **kwargs)
+    File "*site-packages/click/core.py", line 534, in invoke (glob)
+      return callback(*args, **kwargs)
+    File "/Users/laszlokarolyi/Work/immoscout/cbas/venv3/bin/cbas", line 94, in upload (glob)
+      access_token = obtain_access_token(config, password)
+    File "*site-packages/cbas/auth_server.py", line 24, in obtain_access_token (glob)
+      auth_response.raise_for_status()
+    File "*site-packages/requests/models.py", line 840, in raise_for_status (glob)
+      raise HTTPError(http_error_msg, response=self)
+  requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http://localhost:8080/oauth/token
+  [1]
+
+# Shut down the mocked cbastion/auth server
+
+  $ kill $MOCK_PID
