@@ -24,6 +24,7 @@
     upload  Upload ssh-key and create user
 
 # Start the mocked auth & cbastion server
+
   $ cp "$TESTDIR/mocked_cbastion.py" .
   $ ./mocked_cbastion.py >/dev/null 2>&1 &
   $ MOCK_PID=$!
