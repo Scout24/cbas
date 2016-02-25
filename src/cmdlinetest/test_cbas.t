@@ -24,12 +24,13 @@
     upload  Upload ssh-key and create user
 
 # Start the mocked auth & cbastion server
-
   $ cp "$TESTDIR/mocked_cbastion.py" .
   $ ./mocked_cbastion.py >/dev/null 2>&1 &
   $ MOCK_PID=$!
   $ echo $MOCK_PID
   \d+ (re)
+
+  $ echo "supar-secret-pubkey" >pubkey.pub
 
 # Maybe wait for the bottle server to start
 
@@ -37,7 +38,7 @@
 
 # Test that a HTTP 400 from the auth server raises an error
 
-  $ cbas -u return_400 -p testing -h localhost -s 5i5ptUm4LrJMyEGB -a http://localhost:8080/oauth/token upload
+  $ cbas -u return_400 -p testing -k pubkey.pub -h localhost -s 5i5ptUm4LrJMyEGB -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
   Traceback (most recent call last):
@@ -68,4 +69,5 @@
 
 # Shut down the mocked cbastion/auth server
 
+  $ rm pubkey.pub
   $ kill $MOCK_PID
