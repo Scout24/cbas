@@ -11,6 +11,8 @@ def auth_server():
     if username == 'return_400':
         response.status = 400
         return {'error': 'errored with HTTP 400 on request'}
+    if username == 'return_OK':
+        return {'access_token': 'my-nifty-access-token'}
     return {}
 
 

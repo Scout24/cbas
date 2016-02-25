@@ -41,27 +41,27 @@
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
   Traceback (most recent call last):
-    File "/Users/laszlokarolyi/Work/immoscout/cbas/venv3/bin/cbas", line 136, in <module>
+    File "*/target/dist/cbas-*/scripts/cbas", line *, in <module> (glob)
       main()
-    File "*site-packages/click/core.py", line 716, in __call__ (glob)
+    File "*site-packages/click/core.py", line *, in __call__ (glob)
       return self.main(*args, **kwargs)
-    File "*site-packages/click/core.py", line 696, in main (glob)
+    File "*site-packages/click/core.py", line *, in main (glob)
       rv = self.invoke(ctx)
-    File "*site-packages/click/core.py", line 1060, in invoke (glob)
+    File "*site-packages/click/core.py", line *, in invoke (glob)
       return _process_result(sub_ctx.command.invoke(sub_ctx))
-    File "*site-packages/click/core.py", line 889, in invoke (glob)
+    File "*site-packages/click/core.py", line *, in invoke (glob)
       return ctx.invoke(self.callback, **ctx.params)
-    File "*site-packages/click/core.py", line 534, in invoke (glob)
+    File "*site-packages/click/core.py", line *, in invoke (glob)
       return callback(*args, **kwargs)
-    File "*site-packages/click/decorators.py", line 64, in new_func (glob)
+    File "*site-packages/click/decorators.py", line *, in new_func (glob)
       return ctx.invoke(f, obj, *args[1:], **kwargs)
-    File "*site-packages/click/core.py", line 534, in invoke (glob)
+    File "*site-packages/click/core.py", line *, in invoke (glob)
       return callback(*args, **kwargs)
-    File "/Users/laszlokarolyi/Work/immoscout/cbas/venv3/bin/cbas", line 94, in upload (glob)
+    File "*/target/dist/cbas-*/scripts/cbas", line *, in upload (glob)
       access_token = obtain_access_token(config, password)
-    File "*site-packages/cbas/auth_server.py", line 24, in obtain_access_token (glob)
+    File "*/target/dist/cbas-*/cbas/auth_server.py", line *, in obtain_access_token (glob)
       auth_response.raise_for_status()
-    File "*site-packages/requests/models.py", line 840, in raise_for_status (glob)
+    File "*site-packages/requests/models.py", line *, in raise_for_status (glob)
       raise HTTPError(http_error_msg, response=self)
   requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http://localhost:8080/oauth/token
   [1]
