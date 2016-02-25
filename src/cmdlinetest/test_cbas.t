@@ -85,7 +85,7 @@
   Authentication OK!
   Access token was received.
   Will now attempt to upload your ssh-key...
-  Upload failed: You shall not pass: 'supar-UNSUCCESSFUL-pubkey'
+  Upload failed: You shall not pass: supar-UNSUCCESSFUL-pubkey
 
 # Shut down the mocked cbastion/auth server
 
