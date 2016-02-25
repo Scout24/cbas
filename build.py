@@ -32,6 +32,5 @@ def set_properties(project):
     project.build_depends_on('requests_mock')
     project.build_depends_on('mock')
     project.build_depends_on('bottle')
-    project.build_depends_on('python-daemon')
     project.get_property('filter_resources_glob').extend(
         ['**/cbas/__init__.py'])
