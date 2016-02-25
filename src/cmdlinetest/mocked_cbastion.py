@@ -16,8 +16,13 @@ def auth_server():
     return {}
 
 
-@app.route('/create')
+@app.route('/create', method='POST')
 def create():
-    pass
+    pubkey = request.json['pubkey'].strip()
+    if pubkey == 'supar-successful-pubkey':
+        return {'result': 'Great success!'}
+    response.status = 400
+    return {'error': 'You shall not pass: {0!r}'.format(pubkey)}
+
 
 run(app, host='localhost', port=8080, debug=True, reloader=True)

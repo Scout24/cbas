@@ -30,11 +30,10 @@
   $ echo $MOCK_PID
   \d+ (re)
 
-  $ echo "supar-secret-pubkey" >pubkey.pub
-
 # Maybe wait for the bottle server to start
 
   $ sleep 1
+  $ echo "supar-successful-pubkey" >pubkey.pub
 
 # Test that a HTTP 400 from the auth server raises an error
 
@@ -66,6 +65,27 @@
       raise HTTPError(http_error_msg, response=self)
   requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http://localhost:8080/oauth/token
   [1]
+
+# Test a successful creation
+
+  $ echo "supar-successful-pubkey" >pubkey.pub
+
+  $ cbas -u return_OK -p testing -k pubkey.pub -h localhost:8080 -s 5i5ptUm4LrJMyEGB -a http://localhost:8080/oauth/token upload
+  Will now attempt to obtain an JWT...
+  Authentication OK!
+  Access token was received.
+  Will now attempt to upload your ssh-key...
+  Upload OK!
+
+# Test a negative case when an error occurs
+
+  $ echo "supar-UNSUCCESSFUL-pubkey" >pubkey.pub
+  $ cbas -u return_OK -p testing -k pubkey.pub -h localhost:8080 -s 5i5ptUm4LrJMyEGB -a http://localhost:8080/oauth/token upload
+  Will now attempt to obtain an JWT...
+  Authentication OK!
+  Access token was received.
+  Will now attempt to upload your ssh-key...
+  Upload failed: You shall not pass: 'supar-UNSUCCESSFUL-pubkey'
 
 # Shut down the mocked cbastion/auth server
 

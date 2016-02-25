@@ -59,8 +59,8 @@ class CBASConfig(collections.MutableMapping):
 
     def __delitem__(self, key):
         raise NotImplementedError(
-                '%s does not support __delitem__ or derivatives'
-                % self._class_name)
+            '%s does not support __delitem__ or derivatives'
+            % self._class_name)
 
     def __len__(self):
         return len(self.options)
@@ -75,16 +75,19 @@ class CBASConfig(collections.MutableMapping):
 
     def is_complete(self):
         if not all(self.values()):
-            raise MissingConfigValues('Some config options are missing:\n{0}'.format(self))
+            raise MissingConfigValues(
+                'Some config options are missing:\n{0}'.format(self))
         return True
 
     def validate_options(self, loaded_options):
-        valid_values_hyphen = {(k.replace('_', '-') for k in CBASConfig.options)}
+        valid_values_hyphen = {(k.replace('_', '-')
+                                for k in CBASConfig.options)}
         valid_values_underscore = set(CBASConfig.options)
         valid_values = valid_values_hyphen.union(valid_values_underscore)
         unexpected_values = set(loaded_options).difference(valid_values)
         if unexpected_values:
-            raise UnexpectedConfigValues('The following unexpected values were detected {0}'.format(unexpected_values))
+            raise UnexpectedConfigValues(
+                'The following unexpected values were detected {0}'.format(unexpected_values))
         return True
 
     def load_config(self, config_path):
