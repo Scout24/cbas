@@ -1,4 +1,4 @@
-from cbas.log import verbose, info
+from cbas.log import verbose, info, CMDLineExit
 import cbas.log as log
 import requests
 
@@ -14,14 +14,15 @@ def obtain_access_token(config, password):
     auth_response = requests.post(config.auth_url, auth_request_data)
 
     if auth_response.status_code not in [200, 201]:
-        log.info("Authentication failed: {0}".format(auth_response.json().get("error")))
-        if log.VERBOSE:
-            auth_response.raise_for_status()
+        # TODO: try to catch and forward the actual requests
+        # raise_for_status exception
+        raise CMDLineExit("Authentication failed: {0}".format(
+            auth_response.json().get("error")))
     else:
         log.info("Authentication OK!")
 
     # TODO bail out if we couldn't get an access token
-    auth_response.raise_for_status()
+    # auth_response.raise_for_status()
     # TODO bail out if there was no access token in the answer
     access_token = auth_response.json()['access_token']
     info("Access token was received.")

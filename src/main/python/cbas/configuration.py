@@ -13,7 +13,7 @@ DEFAULT_CONFIG_PATH = "~/.cbas"
 DEFAULT_PASSWORD_PROVIDER = PROMPT
 DEFAULT_SSH_KEY_FILE = '~/.ssh/id_rsa.pub'
 
-pp = pprint.PrettyPrinter(indent=4)
+pp = pprint.PrettyPrinter(indent=1)
 
 
 class UnexpectedConfigValues(Exception):

@@ -38,55 +38,53 @@
 
 # Test that a HTTP 400 from the auth server raises an error
 
-  $ cbas -u return_400 -p testing -k pubkey.pub -h localhost -s 5i5ptUm4LrJMyEGB -a http://localhost:8080/oauth/token upload
+  $ cbas -u auth_fail -p testing -k pubkey.pub -h localhost -s client_secret -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
-  Traceback (most recent call last):
-    File "*/target/dist/cbas-*/scripts/cbas", line *, in <module> (glob)
-      main()
-    File "*site-packages/click/core.py", line *, in __call__ (glob)
-      return self.main(*args, **kwargs)
-    File "*site-packages/click/core.py", line *, in main (glob)
-      rv = self.invoke(ctx)
-    File "*site-packages/click/core.py", line *, in invoke (glob)
-      return _process_result(sub_ctx.command.invoke(sub_ctx))
-    File "*site-packages/click/core.py", line *, in invoke (glob)
-      return ctx.invoke(self.callback, **ctx.params)
-    File "*site-packages/click/core.py", line *, in invoke (glob)
-      return callback(*args, **kwargs)
-    File "*site-packages/click/decorators.py", line *, in new_func (glob)
-      return ctx.invoke(f, obj, *args[1:], **kwargs)
-    File "*site-packages/click/core.py", line *, in invoke (glob)
-      return callback(*args, **kwargs)
-    File "*/target/dist/cbas-*/scripts/cbas", line *, in upload (glob)
-      access_token = obtain_access_token(config, password)
-    File "*/target/dist/cbas-*/cbas/auth_server.py", line *, in obtain_access_token (glob)
-      auth_response.raise_for_status()
-    File "*site-packages/requests/models.py", line *, in raise_for_status (glob)
-      raise HTTPError(http_error_msg, response=self)
-  requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http://localhost:8080/oauth/token
   [1]
 
 # Test a successful creation
 
   $ echo "supar-successful-pubkey" >pubkey.pub
 
-  $ cbas -u return_OK -p testing -k pubkey.pub -h localhost:8080 -s 5i5ptUm4LrJMyEGB -a http://localhost:8080/oauth/token upload
+  $ cbas -u user_ok -p testing -k pubkey.pub -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication OK!
   Access token was received.
   Will now attempt to upload your ssh-key...
   Upload OK!
 
-# Test a negative case when an error occurs
+# Test a negative case when a user creation fails
 
-  $ echo "supar-UNSUCCESSFUL-pubkey" >pubkey.pub
-  $ cbas -u return_OK -p testing -k pubkey.pub -h localhost:8080 -s 5i5ptUm4LrJMyEGB -a http://localhost:8080/oauth/token upload
+  $ echo "" >pubkey.pub
+  $ cbas -u create_fail -p testing -k pubkey.pub -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication OK!
   Access token was received.
   Will now attempt to upload your ssh-key...
-  Upload failed: You shall not pass: supar-UNSUCCESSFUL-pubkey
+  Upload failed: Permission denied
+  Error: HTTP response code from c-bastion was 403
+  [1]
+
+# Test a positive case for user deletion
+
+  $ cbas -u user_ok -p testing -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token delete
+  Will now attempt to obtain an JWT...
+  Authentication OK!
+  Access token was received.
+  Will now attempt to delete your user...
+  Delete OK!
+
+# Test a negative case for user deletion
+
+  $ cbas -u delete_fail -p testing -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token delete
+  Will now attempt to obtain an JWT...
+  Authentication OK!
+  Access token was received.
+  Will now attempt to delete your user...
+  Delete failed!
+  Error: HTTP response code from c-bastion was 403
+  [1]
 
 # Shut down the mocked cbastion/auth server
 
