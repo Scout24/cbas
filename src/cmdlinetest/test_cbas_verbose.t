@@ -50,7 +50,7 @@
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
   Traceback (most recent call last):
-    File "*/src/main/scripts/cbas", line *, in <module> (glob)
+    File "*/scripts/cbas", line *, in <module> (glob)
       main()
     File "*/site-packages/click/core.py", line *, in __call__ (glob)
       return self.main(*args, **kwargs)
@@ -66,9 +66,9 @@
       return ctx.invoke(f, obj, *args[1:], **kwargs)
     File "*/site-packages/click/core.py", line *, in invoke (glob)
       return callback(*args, **kwargs)
-    File "*/src/main/scripts/cbas", line *, in upload (glob)
+    File "*/scripts/cbas", line *, in upload (glob)
       access_token = obtain_access_token(config, password)
-    File "*/src/main/python/cbas/auth_server.py", line *, in obtain_access_token (glob)
+    File "*/cbas/auth_server.py", line *, in obtain_access_token (glob)
       auth_response.json().get("error")))
   cbas.log.CMDLineExit: Authentication failed: errored with HTTP 400 on request
   [1]
@@ -115,7 +115,7 @@
   Upload failed: Permission denied
   Error: HTTP response code from c-bastion was 403
   Traceback (most recent call last):
-    File "*/src/main/scripts/cbas", line *, in <module> (glob)
+    File "*/scripts/cbas", line *, in <module> (glob)
       main()
     File "*/site-packages/click/core.py", line *, in __call__ (glob)
       return self.main(*args, **kwargs)
@@ -131,7 +131,7 @@
       return ctx.invoke(f, obj, *args[1:], **kwargs)
     File "*/site-packages/click/core.py", line *, in invoke (glob)
       return callback(*args, **kwargs)
-    File "*/src/main/scripts/cbas", line *, in upload (glob)
+    File "*/scripts/cbas", line *, in upload (glob)
       jump_response.status_code))
   cbas.log.CMDLineExit: Error: HTTP response code from c-bastion was 403
   [1]
@@ -175,7 +175,7 @@
   Delete failed!
   Error: HTTP response code from c-bastion was 403
   Traceback (most recent call last):
-    File "*/src/main/scripts/cbas", line *, in <module> (glob)
+    File "*/scripts/cbas", line *, in <module> (glob)
       main()
     File "*/site-packages/click/core.py", line *, in __call__ (glob)
       return self.main(*args, **kwargs)
@@ -191,7 +191,7 @@
       return ctx.invoke(f, obj, *args[1:], **kwargs)
     File "*/site-packages/click/core.py", line *, in invoke (glob)
       return callback(*args, **kwargs)
-    File "*/src/main/scripts/cbas", line *, in delete (glob)
+    File "*/scripts/cbas", line *, in delete (glob)
       jump_response.status_code))
   cbas.log.CMDLineExit: Error: HTTP response code from c-bastion was 403
   [1]
