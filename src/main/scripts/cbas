@@ -143,4 +143,9 @@ def delete(config):
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except CMDLineExit as e:
+        log.info(e)
+        if log.VERBOSE:
+            raise
