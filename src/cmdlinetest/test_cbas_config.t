@@ -6,6 +6,9 @@
   $ mkdir test-home
   $ export HOME=test-home
 
+  $ cbas --version
+  cbas version: \d+ (re)
+
 # Test incomplete configuration
 
   $ cbas upload
