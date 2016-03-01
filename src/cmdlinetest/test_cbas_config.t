@@ -130,7 +130,7 @@
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': 'vhaenel'}
+   'username': '*'} (glob)
   Config path is: test-home/.cbas
   Loaded values from config file are:
   {'ssh_key_file': 'from-config-file'}
@@ -140,7 +140,7 @@
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': 'from-config-file',
-   'username': 'vhaenel'}
+   'username': '*'} (glob)
   Values supplied on the command-line are:
   {'auth_url': u?'url', (re)
    'client_secret': u?'secret', (re)
