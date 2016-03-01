@@ -88,10 +88,7 @@ def read_wrapper(ctx, param, value):
               help="Print version and exit.")
 def main(config, **kwargs):
     config.inject(kwargs)
-    try:
-        config.is_complete()
-    except MissingConfigValues as e:
-        raise CMDLineExit(e)
+    config.is_complete()
 
 
 @main.command(help="Upload ssh-key and create user")
@@ -151,7 +148,7 @@ def delete(config):
 if __name__ == '__main__':
     try:
         main()
-    except CMDLineExit as e:
+    except Exception as e:
         log.info(e)
         if log.VERBOSE:
             raise
