@@ -115,3 +115,36 @@
       'The following unexpected values were detected {0}'.format(list(unexpected_values)))
   cbas.configuration.UnexpectedConfigValues: The following unexpected values were detected ['UNEXPECTED_KEY']
   [1]
+
+# Cleanup
+
+  $ rm ~/.cbas
+
+# Test loading and overriding config with file
+
+  $ echo "ssh-key-file: from-config-file" > ~/.cbas
+  $ cbas -v -k from-command-line -a url -s secret -h host dry_run
+  Default config is:
+  {'auth_url': None,
+   'client_secret': None,
+   'jump_host': None,
+   'password_provider': 'prompt',
+   'ssh_key_file': '~/.ssh/id_rsa.pub',
+   'username': 'vhaenel'}
+  Config path is: test-home/.cbas
+  Loaded values from config file are:
+  {'ssh_key_file': 'from-config-file'}
+  Processed config after loading:
+  {'auth_url': None,
+   'client_secret': None,
+   'jump_host': None,
+   'password_provider': 'prompt',
+   'ssh_key_file': 'from-config-file',
+   'username': 'vhaenel'}
+  Values supplied on the command-line are:
+  {'auth_url': u?'url', (re)
+   'client_secret': u?'secret', (re)
+   'jump_host': u?'host', (re)
+   'password_provider': None,
+   'ssh_key_file': u?'from-command-line', (re)
+   'username': None}
