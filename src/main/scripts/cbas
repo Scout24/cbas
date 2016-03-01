@@ -91,6 +91,8 @@ def main(config, **kwargs):
     log.verbose('Values supplied on the command-line are:')
     log.verbose(pp.pformat(kwargs))
     config.inject(kwargs)
+    log.verbose('Final aggregated config:')
+    log.verbose(str(config))
     config.is_complete()
 
 
