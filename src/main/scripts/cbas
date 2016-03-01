@@ -42,10 +42,7 @@ def process_verbose(ctx, param, value):
 
 
 def read_wrapper(ctx, param, value):
-    try:
-        return CBASConfig.read(ctx, param, value)
-    except UnexpectedConfigValues as e:
-        raise CMDLineExit(e)
+    return CBASConfig.read(ctx, param, value)
 
 
 @click.group()
