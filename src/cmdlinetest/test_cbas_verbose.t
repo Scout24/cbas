@@ -60,6 +60,13 @@
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'auth_fail'} (re)
+  Final aggregated config:
+  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+   'client_secret': u?'client_secret', (re)
+   'jump_host': u?'localhost', (re)
+   'password_provider': u?'testing', (re)
+   'ssh_key_file': u?'pubkey.pub', (re)
+   'username': u?'auth_fail'} (re)
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
@@ -109,6 +116,13 @@
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'user_ok'} (re)
+  Final aggregated config:
+  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+   'client_secret': u?'client_secret', (re)
+   'jump_host': u?'localhost:8080', (re)
+   'password_provider': u?'testing', (re)
+   'ssh_key_file': u?'pubkey.pub', (re)
+   'username': u?'user_ok'} (re)
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -130,6 +144,13 @@
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Values supplied on the command-line are:
+  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+   'client_secret': u?'client_secret', (re)
+   'jump_host': u?'localhost:8080', (re)
+   'password_provider': u?'testing', (re)
+   'ssh_key_file': u?'pubkey.pub', (re)
+   'username': u?'create_fail'} (re)
+  Final aggregated config:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
    'client_secret': u?'client_secret', (re)
    'jump_host': u?'localhost:8080', (re)
@@ -186,6 +207,13 @@
    'password_provider': u?'testing', (re)
    'ssh_key_file': None, (re)
    'username': u?'user_ok'} (re)
+  Final aggregated config:
+  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+   'client_secret': u?'client_secret', (re)
+   'jump_host': u?'localhost:8080', (re)
+   'password_provider': u?'testing', (re)
+   'ssh_key_file': '~/.ssh/id_rsa.pub',
+   'username': u?'user_ok'} (re)
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -211,6 +239,13 @@
    'jump_host': u?'localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': None, (re)
+   'username': u?'delete_fail'} (re)
+  Final aggregated config:
+  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+   'client_secret': u?'client_secret', (re)
+   'jump_host': u?'localhost:8080', (re)
+   'password_provider': u?'testing', (re)
+   'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': u?'delete_fail'} (re)
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
