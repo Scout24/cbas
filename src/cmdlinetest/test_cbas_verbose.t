@@ -54,6 +54,7 @@
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
+  400 Client Error: Bad Request for url: http://localhost:8080/oauth/token
   Traceback (most recent call last):
     File "*/scripts/cbas", line *, in <module> (glob)
       main()
@@ -74,8 +75,10 @@
     File "*/scripts/cbas", line *, in upload (glob)
       access_token = obtain_access_token(config, password)
     File "*/cbas/auth_server.py", line *, in obtain_access_token (glob)
-      auth_response.json().get("error")))
-  cbas.log.CMDLineExit: Authentication failed: errored with HTTP 400 on request
+      auth_response.raise_for_status()
+    File "*/site-packages/requests/models.py", line *, in raise_for_status (glob)
+      raise HTTPError(http_error_msg, response=self)
+  requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http://localhost:8080/oauth/token
   [1]
 
 # Test a successful creation
@@ -118,7 +121,7 @@
   'the-token-with-which-create-will-fail'
   Will now attempt to upload your ssh-key...
   Upload failed: Permission denied
-  Error: HTTP response code from c-bastion was 403
+  403 Client Error: Forbidden for url: http://localhost:8080/create
   Traceback (most recent call last):
     File "*/scripts/cbas", line *, in <module> (glob)
       main()
@@ -137,8 +140,10 @@
     File "*/site-packages/click/core.py", line *, in invoke (glob)
       return callback(*args, **kwargs)
     File "*/scripts/cbas", line *, in upload (glob)
-      jump_response.status_code))
-  cbas.log.CMDLineExit: Error: HTTP response code from c-bastion was 403
+      jump_response.raise_for_status()
+    File "*/site-packages/requests/models.py", line *, in raise_for_status (glob)
+      raise HTTPError(http_error_msg, response=self)
+  requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: http://localhost:8080/create
   [1]
 
 # Test a positive case for user deletion
@@ -178,7 +183,7 @@
   'the-token-with-which-delete-will-fail'
   Will now attempt to delete your user...
   Delete failed!
-  Error: HTTP response code from c-bastion was 403
+  403 Client Error: Forbidden for url: http://localhost:8080/delete
   Traceback (most recent call last):
     File "*/scripts/cbas", line *, in <module> (glob)
       main()
@@ -197,8 +202,10 @@
     File "*/site-packages/click/core.py", line *, in invoke (glob)
       return callback(*args, **kwargs)
     File "*/scripts/cbas", line *, in delete (glob)
-      jump_response.status_code))
-  cbas.log.CMDLineExit: Error: HTTP response code from c-bastion was 403
+      jump_response.raise_for_status()
+    File "*/site-packages/requests/models.py", line *, in raise_for_status (glob)
+      raise HTTPError(http_error_msg, response=self)
+  requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: http://localhost:8080/delete
   [1]
 
 # Shut down the mocked cbastion/auth server
