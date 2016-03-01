@@ -165,6 +165,27 @@ upload
 delete
   Delete your user again. For example: if you uploaded the wrong ssh-key-file.
 
+Config-File
+===========
+
+``cbas`` is equipped with a powerful configuration mechanism. All revelvant
+parameters that can be supplied on the command-line can also be supplied in the
+config-file, for example:
+
+
+.. code-block:: yaml
+
+    username: acid_burn
+    ssh-key-file: ~/.ssh/mykey_rsa.pub
+    auth-url: https://auth-server.example/oauth/token
+    client-secret: mysupersecret
+    password-provider: keyring
+    jump-host: jump-host.example
+
+Please note that, any parameters supplied on the command line will take
+precedence over those supplied via the config-file. If in doubt, try using the
+``--verbose`` switch.
+
 License
 =======
 
