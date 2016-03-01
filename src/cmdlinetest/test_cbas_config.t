@@ -15,7 +15,7 @@
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': 'vhaenel'}
+   'username': '*'} (glob)
   [1]
 
 # Test incomplete configuration with verbose
@@ -27,14 +27,14 @@
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': 'vhaenel'}
+   'username': '*'} (glob)
   Some config options are missing:
   {'auth_url': None,
    'client_secret': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': 'vhaenel'}
+   'username': '*'} (glob)
   Traceback (most recent call last):
     File "*/scripts/cbas", line *, in <module> (glob)
       main()
@@ -58,5 +58,5 @@
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': 'vhaenel'}
+   'username': '*'} (glob)
   [1]
