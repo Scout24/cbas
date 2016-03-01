@@ -11,7 +11,7 @@ from cbas.auth_server import obtain_access_token
 from cbas.configuration import (DEFAULT_CONFIG_PATH, CBASConfig,
                                 MissingConfigValues, UnexpectedConfigValues,
                                 pass_config)
-from cbas.log import CMDLineExit, info
+from cbas.log import info
 from cbas.password_providers import get_password
 
 
@@ -107,12 +107,7 @@ def upload(config):
     if jump_response.status_code not in [200, 201]:
         log.info(
             "Upload failed: {0}".format(jump_response.json().get("error")))
-        # TODO: try to catch and forward the actual requests
-        # raise_for_status exception with:
-        # jump_response.raise_for_status()
-        raise CMDLineExit(
-            'Error: HTTP response code from c-bastion was {0}'.format(
-                jump_response.status_code))
+        jump_response.raise_for_status()
     else:
         log.info("Upload OK!")
 
@@ -132,12 +127,7 @@ def delete(config):
     jump_response = requests.post(jump_url, headers=jump_request_header)
     if jump_response.status_code != 200:
         log.info("Delete failed!")
-        # TODO: try to catch and forward the actual requests
-        # raise_for_status exception with:
-        # jump_response.raise_for_status()
-        raise CMDLineExit(
-            'Error: HTTP response code from c-bastion was {0}'.format(
-                jump_response.status_code))
+        jump_response.raise_for_status()
     else:
         log.info("Delete OK!")
 

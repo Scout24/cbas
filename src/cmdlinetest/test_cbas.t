@@ -41,6 +41,7 @@
   $ cbas -u auth_fail -p testing -k pubkey.pub -h localhost -s client_secret -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
+  400 Client Error: Bad Request for url: http://localhost:8080/oauth/token
   [1]
 
 # Test a successful creation
@@ -63,7 +64,7 @@
   Access token was received.
   Will now attempt to upload your ssh-key...
   Upload failed: Permission denied
-  Error: HTTP response code from c-bastion was 403
+  403 Client Error: Forbidden for url: http://localhost:8080/create
   [1]
 
 # Test a positive case for user deletion
@@ -83,7 +84,7 @@
   Access token was received.
   Will now attempt to delete your user...
   Delete failed!
-  Error: HTTP response code from c-bastion was 403
+  403 Client Error: Forbidden for url: http://localhost:8080/delete
   [1]
 
 # Shut down the mocked cbastion/auth server
