@@ -94,7 +94,7 @@ def main(config, **kwargs):
     config.is_complete()
 
 
-@main.command(help="Upload ssh-key and create user")
+@main.command(help="Upload ssh-key and create user.")
 @pass_config
 def upload(config):
     ssh_key = get_sshkey(config.ssh_key_file)
@@ -136,6 +136,12 @@ def delete(config):
         jump_response.raise_for_status()
     else:
         log.info("Delete OK!")
+
+
+@main.command(help="Dry run, sanitize all config only.")
+@pass_config
+def dry_run(config):
+    pass
 
 
 if __name__ == '__main__':

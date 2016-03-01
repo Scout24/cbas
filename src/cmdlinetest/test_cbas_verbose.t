@@ -21,8 +21,9 @@
     --help                          Show this message and exit.
   
   Commands:
-    delete  Delete user.
-    upload  Upload ssh-key and create user
+    delete   Delete user.
+    dry_run  Dry run, sanitize all config only.
+    upload   Upload ssh-key and create user.
 
 # Start the mocked auth & cbastion server
 

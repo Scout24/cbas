@@ -111,7 +111,8 @@ Usage
 
     Commands:
       delete  Delete user.
-      upload  Upload ssh-key and create user
+      dry_run Dry run, sanitize all config only.
+      upload  Upload ssh-key and create user.
 
 Options
 -------
