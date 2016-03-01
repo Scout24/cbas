@@ -154,7 +154,7 @@ jump-host
   *excludes* the protocol.)
 
 version
-  Display verion number and exit.
+  Display version number and exit.
 
 help
   Display help and exit.
@@ -171,7 +171,7 @@ delete
 Config-File
 ===========
 
-``cbas`` is equipped with a powerful configuration mechanism. All revelvant
+``cbas`` is equipped with a powerful configuration mechanism. All relevant
 parameters that can be supplied on the command-line can also be supplied in the
 config-file, for example:
 
