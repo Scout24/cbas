@@ -166,6 +166,10 @@ Subcommands
 upload
   Upload ssh-key-file and create user.
 
+dry_run
+  Sanitize and aggregate all options from config-file and command-line. Don't
+  connect to anything.
+
 delete
   Delete your user again. For example: if you uploaded the wrong ssh-key-file.
 
