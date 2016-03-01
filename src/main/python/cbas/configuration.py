@@ -87,7 +87,7 @@ class CBASConfig(collections.MutableMapping):
         unexpected_values = set(loaded_options).difference(valid_values)
         if unexpected_values:
             raise UnexpectedConfigValues(
-                'The following unexpected values were detected {0}'.format(unexpected_values))
+                'The following unexpected values were detected {0}'.format(list(unexpected_values)))
         return True
 
     def load_config(self, config_path):

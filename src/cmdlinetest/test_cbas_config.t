@@ -68,7 +68,7 @@
 
   $ echo "UNEXPECTED_KEY: UNEXPECTED_VALUE" > ~/.cbas
   $ cbas upload
-  The following unexpected values were detected set(['UNEXPECTED_KEY'])
+  The following unexpected values were detected ['UNEXPECTED_KEY']
   [1]
 
 # Test unexpected config values with verbose
@@ -82,7 +82,7 @@
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Config path is: test-home/.cbas
-  The following unexpected values were detected set(['UNEXPECTED_KEY'])
+  The following unexpected values were detected ['UNEXPECTED_KEY']
   Traceback (most recent call last):
     File "*/scripts/cbas", line *, in <module> (glob)
       main()
@@ -105,6 +105,6 @@
     File "*/cbas/configuration.py", line *, in read (glob)
       config.validate_options(loaded_config)
     File "*/cbas/configuration.py", line *, in validate_options (glob)
-      'The following unexpected values were detected {0}'.format(unexpected_values))
-  cbas.configuration.UnexpectedConfigValues: The following unexpected values were detected set(['UNEXPECTED_KEY'])
+      'The following unexpected values were detected {0}'.format(list(unexpected_values)))
+  cbas.configuration.UnexpectedConfigValues: The following unexpected values were detected ['UNEXPECTED_KEY']
   [1]
