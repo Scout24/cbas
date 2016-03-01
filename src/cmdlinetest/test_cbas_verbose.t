@@ -52,6 +52,13 @@
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
+  Values supplied on the command-line are:
+  {'auth_url': u'http://localhost:8080/oauth/token',
+   'client_secret': u'client_secret',
+   'jump_host': u'localhost',
+   'password_provider': u'testing',
+   'ssh_key_file': u'pubkey.pub',
+   'username': u'auth_fail'}
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
@@ -94,6 +101,13 @@
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
+  Values supplied on the command-line are:
+  {'auth_url': u'http://localhost:8080/oauth/token',
+   'client_secret': u'client_secret',
+   'jump_host': u'localhost:8080',
+   'password_provider': u'testing',
+   'ssh_key_file': u'pubkey.pub',
+   'username': u'user_ok'}
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -114,6 +128,13 @@
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
+  Values supplied on the command-line are:
+  {'auth_url': u'http://localhost:8080/oauth/token',
+   'client_secret': u'client_secret',
+   'jump_host': u'localhost:8080',
+   'password_provider': u'testing',
+   'ssh_key_file': u'pubkey.pub',
+   'username': u'create_fail'}
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -157,6 +178,13 @@
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
+  Values supplied on the command-line are:
+  {'auth_url': u'http://localhost:8080/oauth/token',
+   'client_secret': u'client_secret',
+   'jump_host': u'localhost:8080',
+   'password_provider': u'testing',
+   'ssh_key_file': None,
+   'username': u'user_ok'}
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -176,6 +204,13 @@
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
+  Values supplied on the command-line are:
+  {'auth_url': u'http://localhost:8080/oauth/token',
+   'client_secret': u'client_secret',
+   'jump_host': u'localhost:8080',
+   'password_provider': u'testing',
+   'ssh_key_file': None,
+   'username': u'delete_fail'}
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!

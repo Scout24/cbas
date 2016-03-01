@@ -31,6 +31,13 @@
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
+  Values supplied on the command-line are:
+  {'auth_url': None,
+   'client_secret': None,
+   'jump_host': None,
+   'password_provider': None,
+   'ssh_key_file': None,
+   'username': None}
   Some config options are missing:
   {'auth_url': None,
    'client_secret': None,
