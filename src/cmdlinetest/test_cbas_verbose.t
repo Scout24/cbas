@@ -31,6 +31,11 @@
   $ echo $MOCK_PID
   \d+ (re)
 
+# Make a test home
+
+  $ mkdir test-home
+  $ export HOME=test-home
+
 # Maybe wait for the bottle server to start
 
   $ sleep 1
