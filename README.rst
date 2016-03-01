@@ -22,7 +22,7 @@ About
 
 This is the command line interface to the
 `*c-bastion* jump host <https://github.com/ImmobilienScout24/c-bastion>`_.
-It allows you to upload and ssh-key-file and create a user on the jump-host, so
+It allows you to upload an ssh-key-file and create a user on the jump-host, so
 that you can log into it. It requires an initial connection to auth-server to
 obtain an (open-id-connect) access token.
 
