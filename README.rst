@@ -61,6 +61,29 @@ Use the Python standards, for example:
 
     $ pip install cbas
 
+Quickstart
+==========
+
+#. Install the software.
+
+#. Ask one of your colleagues for the ``auth-url``, ``client-secret`` and
+   ``jump-host`` parameters.
+
+#. Then run the following to upload your key:
+
+   .. code-block:: console
+
+       $ cbas -a <AUTH-URL> -s <CLIENT-SECRET> -h <JUMP-HOST> upload
+       ...
+
+#. Then you *should* be able to login, using:
+
+   .. code-block:: console
+
+       $ ssh <JUMP-HOST>
+       ...
+
+
 Usage
 =====
 
@@ -87,6 +110,8 @@ Usage
       delete  Delete user.
       upload  Upload ssh-key and create user
 
+Options
+-------
 
 verbose
   This switch activates verbose output, useful in case you are debugging
@@ -130,6 +155,15 @@ version
 
 help
   Display help and exit.
+
+Subcommands
+-----------
+
+upload
+  Upload ssh-key-file and create user.
+
+delete
+  Delete your user again. For example: if you uploaded the wrong ssh-key-file.
 
 License
 =======
