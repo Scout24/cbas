@@ -14,6 +14,9 @@ cbas - command line interface to the c-bastion
    :alt: Version
    :target: https://pypi.python.org/pypi/cbas
 
+.. contents:: Table of Contents
+   :depth: 1
+
 About
 =====
 
