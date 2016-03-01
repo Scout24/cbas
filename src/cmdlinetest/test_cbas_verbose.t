@@ -8,12 +8,12 @@
   
   Options:
     -v, --verbose                   Activate verbose mode.
-    -c, --config <config_path>      Path to config file.
+    -c, --config <config_path>      Path to config file. Default: '~/.cbas'.
     -u, --username <username>       Username. Default: the logged in user.
     -k, --ssh-key-file <key-file>   SSH Identity to use. Default:
-                                    '~/.ssh/id_rsa.pub'
+                                    '~/.ssh/id_rsa.pub'.
     -p, --password-provider <provider>
-                                    Password provider. Default: 'prompt'
+                                    Password provider. Default: 'prompt'.
     -a, --auth-url <auth_url>       Auth-server URL.
     -s, --client-secret <secret>    Special client secret, ask mum.
     -h, --jump-host <host>          Jump host to connect with.

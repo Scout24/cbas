@@ -55,7 +55,7 @@ def read_wrapper(ctx, param, value):
 @click.option('-c', '--config',
               type=click.Path(exists=False, file_okay=True, dir_okay=True),
               callback=read_wrapper,
-              help='Path to config file.',
+              help="Path to config file. Default: '~/.cbas'.",
               metavar='<config_path>',
               default=DEFAULT_CONFIG_PATH,
               )
@@ -64,10 +64,10 @@ def read_wrapper(ctx, param, value):
               help="Username. Default: the logged in user.")
 @click.option('-k', '--ssh-key-file',
               metavar='<key-file>',
-              help="SSH Identity to use. Default: '~/.ssh/id_rsa.pub'")
+              help="SSH Identity to use. Default: '~/.ssh/id_rsa.pub'.")
 @click.option('-p', '--password-provider',
               metavar='<provider>',
-              help="Password provider. Default: 'prompt'")
+              help="Password provider. Default: 'prompt'.")
 @click.option('-a', '--auth-url',
               metavar='<auth_url>',
               help="Auth-server URL.")
