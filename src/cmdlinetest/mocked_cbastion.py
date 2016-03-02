@@ -17,6 +17,8 @@ def auth_server():
         return {'access_token': 'the-token-with-which-create-will-fail'}
     elif username == 'delete_fail':
         return {'access_token': 'the-token-with-which-delete-will-fail'}
+    elif username == 'empty_page':
+        return {'access_token': 'the-token-which-causes-an-empty-page'}
     else:
         return {}
 
@@ -29,6 +31,9 @@ def create():
     elif auth_token == 'the-token-with-which-create-will-fail':
         response.status = 403
         return {'error': 'Permission denied'}
+    elif auth_token == 'the-token-which-causes-an-empty-page':
+        response.status = 403
+        return "empty"
 
 
 @app.route('/delete', method='POST')

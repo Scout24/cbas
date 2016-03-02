@@ -164,7 +164,7 @@
   Access token is:
   'the-token-with-which-create-will-fail'
   Will now attempt to upload your ssh-key...
-  Upload failed: Permission denied
+  Upload failed: {"error": "Permission denied"}
   403 Client Error: Forbidden for url: http://localhost:8080/create
   Traceback (most recent call last):
     File "*/scripts/cbas", line *, in <module> (glob)

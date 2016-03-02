@@ -65,7 +65,7 @@
   Authentication OK!
   Access token was received.
   Will now attempt to upload your ssh-key...
-  Upload failed: Permission denied
+  Upload failed: {"error": "Permission denied"}
   403 Client Error: Forbidden for url: http://localhost:8080/create
   [1]
 
@@ -87,6 +87,17 @@
   Will now attempt to delete your user...
   Delete failed!
   403 Client Error: Forbidden for url: http://localhost:8080/delete
+  [1]
+
+# Test error message for an empty page
+
+  $ cbas -u empty_page -p testing -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
+  Will now attempt to obtain an JWT...
+  Authentication OK!
+  Access token was received.
+  Will now attempt to upload your ssh-key...
+  Upload failed: empty
+  403 Client Error: Forbidden for url: http://localhost:8080/create
   [1]
 
 # Shut down the mocked cbastion/auth server
