@@ -48,8 +48,6 @@
 
 # Test a successful creation
 
-  $ echo "supar-successful-pubkey" >pubkey.pub
-
   $ cbas -u user_ok -p testing -k pubkey.pub -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -91,7 +89,7 @@
 
 # Test error message for an empty page
 
-  $ cbas -u empty_page -p testing -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
+  $ cbas -u empty_page -p testing -k pubkey.pub -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication OK!
   Access token was received.
