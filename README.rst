@@ -28,32 +28,34 @@ obtain an (open-id-connect) access token.
 
 The basic flow is as follows::
 
-     +-----------+   +-----------+   +-----------+
-     |           |   |           |   |           |
-     | developer |   |   auth    |   |   jump    |
-     |           |   |           |   |           |
-     +-----------+   +-----------+   +-----------+
-           |               |               |
-           |               |               |
-           +--------------->               |
-           | request token |               |
-           |               |               |
-           <---------------+               |
-           | receive token |               |
-           |               |               |
-           +------------------------------->
-           | upload ssh-key|and create user|
-           |               |               |
-           |               |               |
-           +------------------------------->
-           | ssh login     |               |
-           |               |               |
-           |               |               |
-           +               +               +
+    +-----------------+  +-----------------+  +-----------------+
+    |                 |  |                 |  |                 |
+    |    developer    |  |    jump host    |  |   auth server   |
+    |                 |  |                 |  |                 |
+    +--------+--------+  +--------+--------+  +--------+--------+
+             |                    |                    |
+             +----------------------------------------->
+             | request token      |                    |
+             <-----------------------------------------+
+             | receive token      |                    |
+             |                    |                    |
+             +-------------------->                    |
+             | upload key         +-------------------->
+             |                    | validate token     |
+             |                    <--------------------+
+             <--------------------+                    |
+             | upload OK          |                    |
+             |                    |                    |
+             +-------------------->                    |
+             | ssh log in         |                    |
+             |                    |                    |
+             |                    |                    |
+             |                    |                    |
+             +                    +                    +
 
-Where ``developer`` is your local machine (desktop, laptop, etc..) ``auth`` is
-the auth-server and ``jump`` is the jump host. ``cbas`` takes care of obtaining
-the token and uploading the ssh-key.
+Where ``developer`` is your local machine (desktop, laptop, etc..) ``auth
+server`` is the auth-server and ``jump host`` is the jump host. ``cbas`` takes
+care of obtaining the token and uploading the ssh-key.
 
 Install
 =======
