@@ -19,7 +19,6 @@ class TestCBASConfig(unittest.TestCase):
         received = CBASConfig()
         expected = {'username': 'ANY_USER',
                     'auth_url': None,
-                    'client_secret': None,
                     'password_provider': 'prompt',
                     'jump_host': None,
                     'ssh_key_file': '~/.ssh/id_rsa.pub'}

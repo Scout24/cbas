@@ -123,7 +123,7 @@
 # Test loading and overriding config with file
 
   $ echo "ssh-key-file: from-config-file" > ~/.cbas
-  $ cbas -v -k from-command-line -a url -s secret -h host dry_run
+  $ cbas -v -k from-command-line -a url -h host dry_run
   Default config is:
   {'auth_url': None,
    'jump_host': None,
