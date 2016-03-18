@@ -75,9 +75,6 @@ def read_wrapper(ctx, param, value):
 @click.option('-a', '--auth-url',
               metavar='<auth_url>',
               help="Auth-server URL.")
-@click.option('-s', '--client-secret',
-              metavar='<secret>',
-              help='Special client secret, ask mum.')
 @click.option('-h', '--jump-host',
               metavar='<host>',
               help="Jump host to connect with.")

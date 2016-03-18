@@ -6,7 +6,6 @@ import requests
 def obtain_access_token(config, password):
     info("Will now attempt to obtain an JWT...")
     auth_request_data = {'client_id': 'jumpauth',
-                         'client_secret': config.client_secret,
                          'username': config.username,
                          'password': password,
                          'grant_type': 'password'}

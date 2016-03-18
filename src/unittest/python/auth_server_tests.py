@@ -20,13 +20,11 @@ class TestObtainAccessToken(unittest.TestCase):
         rmock.post(requests_mock.ANY, text='{"access_token": "ANY_TOKEN"}')
         cmock = Mock()
         cmock.username = "ANY_USERNAME"
-        cmock.client_secret = "ANY_SECRET"
         cmock.auth_url = "https://ANY_URL.example"
         result = obtain_access_token(cmock, 'ANY_PASSWORD')
         self.assertEqual('ANY_TOKEN', result)
         received_post_data = parse_qs(rmock.request_history[0].text)
         expected_post_data = {u'username': [u'ANY_USERNAME'],
-                              u'client_secret': [u'ANY_SECRET'],
                               u'password': [u'ANY_PASSWORD'],
                               u'client_id': [u'jumpauth'],
                               u'grant_type': [u'password']}

@@ -10,7 +10,6 @@ class TestCBASConfig(unittest.TestCase):
         config = CBASConfig()
         self.assertEqual(config.username, 'ANY_USER')
         self.assertEqual(config.auth_url, None)
-        self.assertEqual(config.client_secret, None)
         self.assertEqual(config.password_provider, 'prompt')
         self.assertEqual(config.jump_host, None)
         self.assertEqual(config.ssh_key_file, '~/.ssh/id_rsa.pub')
@@ -33,14 +32,12 @@ class TestCBASConfig(unittest.TestCase):
         to_inject = {
             'username': 'ANY_USER',
             'auth_url': 'ANY_URL',
-            'client_secret': 'ANY_SECRET',
             'password_provider': 'ANY_PROVIDER',
             # exclude jump_host to make sure it remains None
         }
         config.inject(to_inject)
         self.assertEqual(config.username, 'ANY_USER')
         self.assertEqual(config.auth_url, 'ANY_URL')
-        self.assertEqual(config.client_secret, 'ANY_SECRET')
         self.assertEqual(config.password_provider, 'ANY_PROVIDER')
         self.assertEqual(config.jump_host, None)
 
@@ -92,7 +89,6 @@ class TestCBASConfig(unittest.TestCase):
     def test_success_for_complete_config(self):
         complete_config = CBASConfig()
         complete_config.auth_url = 'ANY_URL'
-        complete_config.client_secret = 'ANY_SECRET'
         complete_config.jump_host = 'ANY_HOST'
         self.assertTrue(complete_config.is_complete)
 

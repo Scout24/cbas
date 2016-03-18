@@ -15,7 +15,6 @@
     -p, --password-provider <provider>
                                     Password provider. Default: 'prompt'.
     -a, --auth-url <auth_url>       Auth-server URL.
-    -s, --client-secret <secret>    Special client secret, ask mum.
     -h, --jump-host <host>          Jump host to connect with.
     --version                       Print version and exit.
     --help                          Show this message and exit.
@@ -40,7 +39,7 @@
 
 # Test that a HTTP 400 from the auth server raises an error
 
-  $ cbas -u auth_fail -p testing -k pubkey.pub -h localhost -s client_secret -a http://localhost:8080/oauth/token upload
+  $ cbas -u auth_fail -p testing -k pubkey.pub -h localhost -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
   400 Client Error: Bad Request for url: http://localhost:8080/oauth/token
@@ -48,7 +47,7 @@
 
 # Test a successful creation
 
-  $ cbas -u user_ok -p testing -k pubkey.pub -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
+  $ cbas -u user_ok -p testing -k pubkey.pub -h localhost:8080 -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication OK!
   Access token was received.
@@ -58,7 +57,7 @@
 # Test a negative case when a user creation fails
 
   $ echo "" >pubkey.pub
-  $ cbas -u create_fail -p testing -k pubkey.pub -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
+  $ cbas -u create_fail -p testing -k pubkey.pub -h localhost:8080 -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication OK!
   Access token was received.
@@ -69,7 +68,7 @@
 
 # Test a positive case for user deletion
 
-  $ cbas -u user_ok -p testing -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token delete
+  $ cbas -u user_ok -p testing -h localhost:8080 -a http://localhost:8080/oauth/token delete
   Will now attempt to obtain an JWT...
   Authentication OK!
   Access token was received.
@@ -78,7 +77,7 @@
 
 # Test a negative case for user deletion
 
-  $ cbas -u delete_fail -p testing -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token delete
+  $ cbas -u delete_fail -p testing -h localhost:8080 -a http://localhost:8080/oauth/token delete
   Will now attempt to obtain an JWT...
   Authentication OK!
   Access token was received.
@@ -89,7 +88,7 @@
 
 # Test error message for an empty page
 
-  $ cbas -u empty_page -p testing -k pubkey.pub -h localhost:8080 -s client_secret -a http://localhost:8080/oauth/token upload
+  $ cbas -u empty_page -p testing -k pubkey.pub -h localhost:8080 -a http://localhost:8080/oauth/token upload
   Will now attempt to obtain an JWT...
   Authentication OK!
   Access token was received.
