@@ -3,3 +3,6 @@
 htmlcov/
 *.t.err
 target/
+/venv
+/.idea
+/*.iml
