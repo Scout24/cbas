@@ -37,6 +37,11 @@
   $ export JUMP_MOCK=http://localhost:8080
   $ export AUTH_MOCK=http://localhost:8080/oauth/token
 
+# Make a test home
+
+  $ mkdir test-home
+  $ export HOME=test-home
+
 # Maybe wait for the bottle server to start
 
   $ sleep 1
