@@ -153,8 +153,9 @@ client-secret
   auth-server.
 
 jump-host
-  The hostname of the jump-host. E.g. ``jump-host.example``. (Note that this
-  *excludes* the protocol.)
+  The hostname of the jump-host. E.g. ``jump-host.example``. (Note that, by
+  default this will use ``https://``. However, explict urls, e.g.
+  ``http://jump-host.exmple`` are tolerated.)
 
 version
   Display version number and exit.
