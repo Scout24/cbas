@@ -155,7 +155,7 @@ client-secret
 jump-host
   The hostname of the jump-host. E.g. ``jump-host.example``. (Note that, by
   default this will use ``https://``. However, explict urls, e.g.
-  ``http://jump-host.exmple`` are tolerated.)
+  ``http://jump-host.example`` are tolerated.)
 
 version
   Display version number and exit.
