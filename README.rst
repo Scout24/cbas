@@ -71,14 +71,14 @@ Quickstart
 
 #. Install the software.
 
-#. Ask one of your colleagues for the ``auth-url``, ``client-secret`` and
+#. Ask one of your colleagues for the ``auth-host``, ``client-secret`` and
    ``jump-host`` parameters.
 
 #. Then run the following to upload your key:
 
    .. code-block:: console
 
-       $ cbas -a <AUTH-URL> -s <CLIENT-SECRET> -h <JUMP-HOST> upload
+       $ cbas -a <AUTH-host> -s <CLIENT-SECRET> -h <JUMP-HOST> upload
        ...
 
 #. Then you *should* be able to login, using:
@@ -105,8 +105,8 @@ Usage
                                       '~/.ssh/id_rsa.pub'.
       -p, --password-provider <provider>
                                       Password provider. Default: 'prompt'.
-      -a, --auth-url <auth_url>       Auth-server URL.
       -s, --client-secret <secret>    Special client secret, ask mum.
+      -a, --auth-host <host>          Auth-server host.
       -h, --jump-host <host>          Jump host to connect with.
       --version                       Print version and exit.
       --help                          Show this message and exit.
@@ -143,10 +143,10 @@ password-provider
   ``keyring`` will ask exactly once and then store the password in the system
   keyring.
 
-auth-url
-  The URL to access the auth-server and obtain the token. E.g.
-  ``https://auth-server.example/oauth/token``. (Note that this *includes* the
-  protocol.
+auth-host
+  The hostname of the auth-server. E.g ``auth-server.example``. (Note that, by
+  default this will use ``https://``. However, explict urls, e.g.
+  ``http://auth-server.exmple`` are tolerated.)
 
 client-secret
   A special client secret string needed when communicating with the
@@ -188,7 +188,7 @@ config-file, for example:
 
     username: acid_burn
     ssh-key-file: ~/.ssh/mykey_rsa.pub
-    auth-url: https://auth-server.example/oauth/token
+    auth-host auth-server.example
     client-secret: mysupersecret
     password-provider: keyring
     jump-host: jump-host.example
