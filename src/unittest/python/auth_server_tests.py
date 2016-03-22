@@ -20,7 +20,7 @@ class TestObtainAccessToken(unittest.TestCase):
         rmock.post(requests_mock.ANY, text='{"access_token": "ANY_TOKEN"}')
         cmock = Mock()
         cmock.username = "ANY_USERNAME"
-        cmock.auth_url = "https://ANY_URL.example"
+        cmock.auth_host = "ANY_URL.example"
         result = obtain_access_token(cmock, 'ANY_PASSWORD')
         self.assertEqual('ANY_TOKEN', result)
         received_post_data = parse_qs(rmock.request_history[0].text)

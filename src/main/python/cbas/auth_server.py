@@ -3,14 +3,21 @@ import cbas.log as log
 import requests
 
 
+def get_auth_url(config):
+    if "://" in config.auth_host:
+        return '{0}/oauth/token'.format(config.auth_host)
+    else:
+        return 'https://{0}/oauth/token'.format(config.auth_host)
+
+
 def obtain_access_token(config, password):
     info("Will now attempt to obtain an JWT...")
     auth_request_data = {'client_id': 'jumpauth',
                          'username': config.username,
                          'password': password,
                          'grant_type': 'password'}
-
-    auth_response = requests.post(config.auth_url, auth_request_data)
+    auth_url = get_auth_url(config)
+    auth_response = requests.post(auth_url, auth_request_data)
 
     if auth_response.status_code not in [200, 201]:
         log.info("Authentication failed: {0}".

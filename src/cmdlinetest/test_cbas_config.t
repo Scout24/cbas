@@ -13,7 +13,7 @@
 
   $ cbas upload
   Some config options are missing:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
@@ -24,25 +24,25 @@
 
   $ cbas -v upload 
   Default config is:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Values supplied on the command-line are:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': None,
    'ssh_key_file': None,
    'username': None}
   Final aggregated config:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Some config options are missing:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
@@ -65,7 +65,7 @@
     File "*/cbas/configuration.py", line *, in is_complete (glob)
       'Some config options are missing:\n{0}'.format(self))
   cbas.configuration.MissingConfigValues: Some config options are missing:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
@@ -83,7 +83,7 @@
 
   $ cbas -v upload
   Default config is:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
@@ -125,7 +125,7 @@
   $ echo "ssh-key-file: from-config-file" > ~/.cbas
   $ cbas -v -k from-command-line -a url -h host dry_run
   Default config is:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
@@ -134,19 +134,19 @@
   Loaded values from config file are:
   {'ssh_key_file': 'from-config-file'}
   Processed config after loading:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': 'from-config-file',
    'username': '*'} (glob)
   Values supplied on the command-line are:
-  {'auth_url': u?'url', (re)
+  {'auth_host': u?'url', (re)
    'jump_host': u?'host', (re)
    'password_provider': None,
    'ssh_key_file': u?'from-command-line', (re)
    'username': None}
   Final aggregated config:
-  {'auth_url': u?'url', (re)
+  {'auth_host': u?'url', (re)
    'jump_host': u?'host', (re)
    'password_provider': 'prompt',
    'ssh_key_file': u?'from-command-line', (re)

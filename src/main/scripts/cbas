@@ -69,9 +69,9 @@ def read_wrapper(ctx, param, value):
 @click.option('-p', '--password-provider',
               metavar='<provider>',
               help="Password provider. Default: 'prompt'.")
-@click.option('-a', '--auth-url',
-              metavar='<auth_url>',
-              help="Auth-server URL.")
+@click.option('-a', '--auth-host',
+              metavar='<host>',
+              help="Auth-server host.")
 @click.option('-h', '--jump-host',
               metavar='<host>',
               help="Jump host to connect with.")

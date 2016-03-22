@@ -14,7 +14,7 @@
                                     '~/.ssh/id_rsa.pub'.
     -p, --password-provider <provider>
                                     Password provider. Default: 'prompt'.
-    -a, --auth-url <auth_url>       Auth-server URL.
+    -a, --auth-host <host>          Auth-server host.
     -h, --jump-host <host>          Jump host to connect with.
     --version                       Print version and exit.
     --help                          Show this message and exit.
@@ -35,7 +35,7 @@
 # Export the mock urls
 
   $ export JUMP_MOCK=http://localhost:8080
-  $ export AUTH_MOCK=http://localhost:8080/oauth/token
+  $ export AUTH_MOCK=http://localhost:8080
 
 # Make a test home
 
