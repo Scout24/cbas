@@ -32,6 +32,11 @@
   $ echo $MOCK_PID
   \d+ (re)
 
+# Export the mock urls
+
+  $ export JUMP_MOCK=http://localhost:8080
+  $ export AUTH_MOCK=http://localhost:8080/oauth/token
+
 # Make a test home
 
   $ mkdir test-home
@@ -44,7 +49,7 @@
 
 # Test that a HTTP 400 from the auth server raises an error
 
-  $ cbas -v -u auth_fail -p testing -k pubkey.pub -h localhost -a http://localhost:8080/oauth/token upload
+  $ cbas -v -u auth_fail -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
   {'auth_url': None,
    'jump_host': None,
@@ -53,13 +58,13 @@
    'username': '*'} (glob)
   Values supplied on the command-line are:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'auth_fail'} (re)
   Final aggregated config:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'auth_fail'} (re)
@@ -97,7 +102,7 @@
 
   $ echo "supar-successful-pubkey" >pubkey.pub
 
-  $ cbas -v -u user_ok -p testing -k pubkey.pub -h localhost:8080 -a http://localhost:8080/oauth/token upload
+  $ cbas -v -u user_ok -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
   {'auth_url': None,
    'jump_host': None,
@@ -106,13 +111,13 @@
    'username': '*'} (glob)
   Values supplied on the command-line are:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost:8080', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'user_ok'} (re)
   Final aggregated config:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost:8080', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'user_ok'} (re)
@@ -128,7 +133,7 @@
 # Test a negative case when a user creation fails
 
   $ echo "" >pubkey.pub
-  $ cbas -v -u create_fail -p testing -k pubkey.pub -h localhost:8080 -a http://localhost:8080/oauth/token upload
+  $ cbas -v -u create_fail -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
   {'auth_url': None,
    'jump_host': None,
@@ -137,13 +142,13 @@
    'username': '*'} (glob)
   Values supplied on the command-line are:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost:8080', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'create_fail'} (re)
   Final aggregated config:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost:8080', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'create_fail'} (re)
@@ -182,7 +187,7 @@
 
 # Test a positive case for user deletion
 
-  $ cbas -v -u user_ok -p testing -h localhost:8080 -a http://localhost:8080/oauth/token delete
+  $ cbas -v -u user_ok -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
   Default config is:
   {'auth_url': None,
    'jump_host': None,
@@ -191,13 +196,13 @@
    'username': '*'} (glob)
   Values supplied on the command-line are:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost:8080', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': None, (re)
    'username': u?'user_ok'} (re)
   Final aggregated config:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost:8080', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': u?'user_ok'} (re)
@@ -212,7 +217,7 @@
 
 # Test a negative case for user deletion
 
-  $ cbas -v -u delete_fail -p testing -h localhost:8080 -a http://localhost:8080/oauth/token delete
+  $ cbas -v -u delete_fail -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
   Default config is:
   {'auth_url': None,
    'jump_host': None,
@@ -221,13 +226,13 @@
    'username': '*'} (glob)
   Values supplied on the command-line are:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost:8080', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': None, (re)
    'username': u?'delete_fail'} (re)
   Final aggregated config:
   {'auth_url': u?'http://localhost:8080/oauth/token', (re)
-   'jump_host': u?'localhost:8080', (re)
+   'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': u?'delete_fail'} (re)
