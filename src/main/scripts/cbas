@@ -29,10 +29,10 @@ def get_jump_url(config):
     Return the jumphost url with HTTP scheme if we're in testing mode,
     HTTPS otherwise.
     """
-    return (config.jump_host
-            if "://" in config.jump_host
-            else 'https://{0}'.format(config.jump_host)
-            )
+    if "://" in config.jump_host:
+        return config.jump_host
+    else:
+        return 'https://{0}'.format(config.jump_host)
 
 
 def print_version(ctx, param, value):
