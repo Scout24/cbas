@@ -29,6 +29,9 @@ def get_jump_url(config):
     Return the jumphost url with HTTP scheme if we're in testing mode,
     HTTPS otherwise.
     """
+    if "://" in config.jump_host:
+        return config.jump_host
+
     if config['password_provider'] == 'testing':
         return 'http://' + config.jump_host
     return 'https://' + config.jump_host
