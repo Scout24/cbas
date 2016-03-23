@@ -2,12 +2,19 @@ from cbas.log import verbose, info
 import cbas.log as log
 import requests
 
+from six.moves.urllib.parse import urlparse
+
 
 def get_auth_url(config):
-    if "://" in config.auth_host:
-        return '{0}/oauth/token'.format(config.auth_host)
-    else:
-        return 'https://{0}/oauth/token'.format(config.auth_host)
+    result = config.auth_host
+    # add the scheme if none exists
+    if "://" not in config.auth_host:
+        result = 'https://{0}'.format(result)
+    # add the endpoint if none exists
+    parsed = urlparse(result)
+    if not parsed.path:
+        result = '{0}/oauth/token'.format(result)
+    return result
 
 
 def obtain_access_token(config, password):

@@ -23,6 +23,11 @@ class TestGetAuthUrl(unittest.TestCase):
         m = Mock(auth_host='ANY_HOST')
         self.assertEqual('https://ANY_HOST/oauth/token', get_auth_url(m))
 
+    def test_ignore_path_if_exists(self):
+        m = Mock(auth_host='ANY_HOST/special/id/auth')
+        self.assertEqual('https://ANY_HOST/special/id/auth', get_auth_url(m))
+
+
 
 class TestObtainAccessToken(unittest.TestCase):
 
