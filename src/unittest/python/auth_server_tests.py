@@ -5,12 +5,28 @@ from mock import Mock
 
 import requests_mock
 
-from cbas.auth_server import obtain_access_token
+from cbas.auth_server import obtain_access_token, get_auth_url
 
 if sys.version_info[0] == 3:
     from urllib.parse import parse_qs
 else:
     from urlparse import parse_qs
+
+
+class TestGetAuthUrl(unittest.TestCase):
+
+    def test_use_explicit_scheme(self):
+        m = Mock(auth_host='http://ANY_HOST')
+        self.assertEqual('http://ANY_HOST/oauth/token', get_auth_url(m))
+
+    def test_prefix_https(self):
+        m = Mock(auth_host='ANY_HOST')
+        self.assertEqual('https://ANY_HOST/oauth/token', get_auth_url(m))
+
+    def test_ignore_path_if_exists(self):
+        m = Mock(auth_host='ANY_HOST/special/id/auth')
+        self.assertEqual('https://ANY_HOST/special/id/auth', get_auth_url(m))
+
 
 
 class TestObtainAccessToken(unittest.TestCase):
@@ -20,7 +36,7 @@ class TestObtainAccessToken(unittest.TestCase):
         rmock.post(requests_mock.ANY, text='{"access_token": "ANY_TOKEN"}')
         cmock = Mock()
         cmock.username = "ANY_USERNAME"
-        cmock.auth_url = "https://ANY_URL.example"
+        cmock.auth_host = "ANY_URL.example"
         result = obtain_access_token(cmock, 'ANY_PASSWORD')
         self.assertEqual('ANY_TOKEN', result)
         received_post_data = parse_qs(rmock.request_history[0].text)

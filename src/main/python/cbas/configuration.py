@@ -26,7 +26,7 @@ class MissingConfigValues(Exception):
 
 class CBASConfig(collections.MutableMapping):
     options = {'username': lambda: getpass.getuser(),
-               'auth_url': None,
+               'auth_host': None,
                'password_provider': DEFAULT_PASSWORD_PROVIDER,
                'jump_host': None,
                'ssh_key_file': DEFAULT_SSH_KEY_FILE,

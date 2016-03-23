@@ -2,6 +2,20 @@ from cbas.log import verbose, info
 import cbas.log as log
 import requests
 
+from six.moves.urllib.parse import urlparse
+
+
+def get_auth_url(config):
+    result = config.auth_host
+    # add the scheme if none exists
+    if "://" not in config.auth_host:
+        result = 'https://{0}'.format(result)
+    # add the endpoint if none exists
+    parsed = urlparse(result)
+    if not parsed.path:
+        result = '{0}/oauth/token'.format(result)
+    return result
+
 
 def obtain_access_token(config, password):
     info("Will now attempt to obtain an JWT...")
@@ -9,8 +23,8 @@ def obtain_access_token(config, password):
                          'username': config.username,
                          'password': password,
                          'grant_type': 'password'}
-
-    auth_response = requests.post(config.auth_url, auth_request_data)
+    auth_url = get_auth_url(config)
+    auth_response = requests.post(auth_url, auth_request_data)
 
     if auth_response.status_code not in [200, 201]:
         log.info("Authentication failed: {0}".

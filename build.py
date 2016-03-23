@@ -29,6 +29,7 @@ def set_properties(project):
     project.depends_on('secretstorage')
     project.depends_on('yamlreader')
     project.depends_on('requests')
+    project.depends_on('six')
     project.build_depends_on('requests_mock')
     project.build_depends_on('mock')
     project.build_depends_on('bottle')

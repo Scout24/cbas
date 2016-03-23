@@ -14,7 +14,7 @@
                                     '~/.ssh/id_rsa.pub'.
     -p, --password-provider <provider>
                                     Password provider. Default: 'prompt'.
-    -a, --auth-url <auth_url>       Auth-server URL.
+    -a, --auth-host <host>          Auth-server host.
     -h, --jump-host <host>          Jump host to connect with.
     --version                       Print version and exit.
     --help                          Show this message and exit.
@@ -35,7 +35,7 @@
 # Export the mock urls
 
   $ export JUMP_MOCK=http://localhost:8080
-  $ export AUTH_MOCK=http://localhost:8080/oauth/token
+  $ export AUTH_MOCK=http://localhost:8080
 
 # Make a test home
 
@@ -51,19 +51,19 @@
 
   $ cbas -v -u auth_fail -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Values supplied on the command-line are:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'auth_fail'} (re)
   Final aggregated config:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
@@ -104,19 +104,19 @@
 
   $ cbas -v -u user_ok -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Values supplied on the command-line are:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'user_ok'} (re)
   Final aggregated config:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
@@ -135,19 +135,19 @@
   $ echo "" >pubkey.pub
   $ cbas -v -u create_fail -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Values supplied on the command-line are:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'create_fail'} (re)
   Final aggregated config:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': u?'pubkey.pub', (re)
@@ -189,19 +189,19 @@
 
   $ cbas -v -u user_ok -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
   Default config is:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Values supplied on the command-line are:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': None, (re)
    'username': u?'user_ok'} (re)
   Final aggregated config:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': '~/.ssh/id_rsa.pub',
@@ -219,19 +219,19 @@
 
   $ cbas -v -u delete_fail -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
   Default config is:
-  {'auth_url': None,
+  {'auth_host': None,
    'jump_host': None,
    'password_provider': 'prompt',
    'ssh_key_file': '~/.ssh/id_rsa.pub',
    'username': '*'} (glob)
   Values supplied on the command-line are:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': None, (re)
    'username': u?'delete_fail'} (re)
   Final aggregated config:
-  {'auth_url': u?'http://localhost:8080/oauth/token', (re)
+  {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
    'password_provider': u?'testing', (re)
    'ssh_key_file': '~/.ssh/id_rsa.pub',
