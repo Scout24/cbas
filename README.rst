@@ -145,8 +145,10 @@ password-provider
 
 auth-host
   The hostname of the auth-server. E.g ``auth-server.example``. (Note that, by
-  default this will use ``https://``. However, explict urls, e.g.
-  ``http://auth-server.example`` are tolerated.)
+  default this will use ``https://`` as scheme and ``/oauth/token`` as
+  endpoint. However, explict urls, e.g.  ``http://auth-server.example`` and
+  explicit endpoints e.g. ``auth-server.example/special/id/auth`` are
+  tolerated.)
 
 client-secret
   A special client secret string needed when communicating with the
