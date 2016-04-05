@@ -5,6 +5,7 @@ import pprint
 
 import click
 import yamlreader
+import yaml
 
 from cbas.password_providers import PROMPT
 from cbas.log import verbose, info
@@ -40,7 +41,7 @@ class CBASConfig(collections.MutableMapping):
         verbose("Default config is:\n{0}".format(self))
 
     def __str__(self):
-        return pp.pformat(dict(self))
+        return self.yaml_format(self)
 
     @property
     def _class_name(self):
@@ -75,7 +76,7 @@ class CBASConfig(collections.MutableMapping):
     def is_complete(self):
         if not all(self.values()):
             raise MissingConfigValues(
-                'Some config options are missing:\n{0}'.format(self))
+                'Some config options are missing, active config is:\n{0}'.format(self))
         return True
 
     def validate_options(self, loaded_options):
@@ -86,13 +87,17 @@ class CBASConfig(collections.MutableMapping):
         unexpected_values = set(loaded_options).difference(valid_values)
         if unexpected_values:
             raise UnexpectedConfigValues(
-                'The following unexpected values were detected {0}'.format(list(unexpected_values)))
+                'The following unexpected options were detected in configuration: {0}'.format(", ".join(unexpected_values)))
         return True
 
     def load_config(self, config_path):
         basic_loaded_config = yamlreader.yaml_load(config_path)
         return dict(((k.replace('-', '_'), v)
                      for k, v in basic_loaded_config.items()))
+
+    @staticmethod
+    def yaml_format(data):
+        return yaml.safe_dump(dict(data), default_flow_style=False, explicit_start=True, explicit_end=True)
 
     @staticmethod
     def read(ctx, param, value):
@@ -103,9 +108,9 @@ class CBASConfig(collections.MutableMapping):
             loaded_config = config.load_config(config_path)
             config.validate_options(loaded_config)
             verbose("Loaded values from config file are:\n{0}".
-                    format(pp.pformat(loaded_config)))
+                    format(CBASConfig.yaml_format(loaded_config)))
             config.inject(loaded_config)
-            verbose("Processed config after loading:\n{0}".format(config))
+            verbose("Processed config after loading:\n{0}".format(CBASConfig.yaml_format(config)))
         return config
 
 

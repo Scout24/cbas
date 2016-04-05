@@ -51,11 +51,14 @@
 
   $ cbas -v -u auth_fail -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
-  {'auth_host': None,
-   'jump_host': None,
-   'password_provider': 'prompt',
-   'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': '*'} (glob)
+  ---
+  auth_host: null
+  jump_host: null
+  password_provider: prompt
+  ssh_key_file: ~/.ssh/id_rsa.pub
+  username: schlomo
+  ...
+  
   Values supplied on the command-line are:
   {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
@@ -63,11 +66,14 @@
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'auth_fail'} (re)
   Final aggregated config:
-  {'auth_host': u?'http://localhost:8080', (re)
-   'jump_host': u?'http://localhost:8080', (re)
-   'password_provider': u?'testing', (re)
-   'ssh_key_file': u?'pubkey.pub', (re)
-   'username': u?'auth_fail'} (re)
+  ---
+  auth_host: http://localhost:8080
+  jump_host: http://localhost:8080
+  password_provider: testing
+  ssh_key_file: pubkey.pub
+  username: auth_fail
+  ...
+  
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication failed: errored with HTTP 400 on request
@@ -104,11 +110,14 @@
 
   $ cbas -v -u user_ok -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
-  {'auth_host': None,
-   'jump_host': None,
-   'password_provider': 'prompt',
-   'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': '*'} (glob)
+  ---
+  auth_host: null
+  jump_host: null
+  password_provider: prompt
+  ssh_key_file: ~/.ssh/id_rsa.pub
+  username: schlomo
+  ...
+  
   Values supplied on the command-line are:
   {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
@@ -116,11 +125,14 @@
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'user_ok'} (re)
   Final aggregated config:
-  {'auth_host': u?'http://localhost:8080', (re)
-   'jump_host': u?'http://localhost:8080', (re)
-   'password_provider': u?'testing', (re)
-   'ssh_key_file': u?'pubkey.pub', (re)
-   'username': u?'user_ok'} (re)
+  ---
+  auth_host: http://localhost:8080
+  jump_host: http://localhost:8080
+  password_provider: testing
+  ssh_key_file: pubkey.pub
+  username: user_ok
+  ...
+  
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -135,11 +147,14 @@
   $ echo "" >pubkey.pub
   $ cbas -v -u create_fail -p testing -k pubkey.pub -h $JUMP_MOCK -a $AUTH_MOCK upload
   Default config is:
-  {'auth_host': None,
-   'jump_host': None,
-   'password_provider': 'prompt',
-   'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': '*'} (glob)
+  ---
+  auth_host: null
+  jump_host: null
+  password_provider: prompt
+  ssh_key_file: ~/.ssh/id_rsa.pub
+  username: schlomo
+  ...
+  
   Values supplied on the command-line are:
   {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
@@ -147,11 +162,14 @@
    'ssh_key_file': u?'pubkey.pub', (re)
    'username': u?'create_fail'} (re)
   Final aggregated config:
-  {'auth_host': u?'http://localhost:8080', (re)
-   'jump_host': u?'http://localhost:8080', (re)
-   'password_provider': u?'testing', (re)
-   'ssh_key_file': u?'pubkey.pub', (re)
-   'username': u?'create_fail'} (re)
+  ---
+  auth_host: http://localhost:8080
+  jump_host: http://localhost:8080
+  password_provider: testing
+  ssh_key_file: pubkey.pub
+  username: create_fail
+  ...
+  
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -189,11 +207,14 @@
 
   $ cbas -v -u user_ok -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
   Default config is:
-  {'auth_host': None,
-   'jump_host': None,
-   'password_provider': 'prompt',
-   'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': '*'} (glob)
+  ---
+  auth_host: null
+  jump_host: null
+  password_provider: prompt
+  ssh_key_file: ~/.ssh/id_rsa.pub
+  username: schlomo
+  ...
+  
   Values supplied on the command-line are:
   {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
@@ -201,11 +222,14 @@
    'ssh_key_file': None, (re)
    'username': u?'user_ok'} (re)
   Final aggregated config:
-  {'auth_host': u?'http://localhost:8080', (re)
-   'jump_host': u?'http://localhost:8080', (re)
-   'password_provider': u?'testing', (re)
-   'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': u?'user_ok'} (re)
+  ---
+  auth_host: http://localhost:8080
+  jump_host: http://localhost:8080
+  password_provider: testing
+  ssh_key_file: ~/.ssh/id_rsa.pub
+  username: user_ok
+  ...
+  
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
@@ -219,11 +243,14 @@
 
   $ cbas -v -u delete_fail -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
   Default config is:
-  {'auth_host': None,
-   'jump_host': None,
-   'password_provider': 'prompt',
-   'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': '*'} (glob)
+  ---
+  auth_host: null
+  jump_host: null
+  password_provider: prompt
+  ssh_key_file: ~/.ssh/id_rsa.pub
+  username: schlomo
+  ...
+  
   Values supplied on the command-line are:
   {'auth_host': u?'http://localhost:8080', (re)
    'jump_host': u?'http://localhost:8080', (re)
@@ -231,11 +258,14 @@
    'ssh_key_file': None, (re)
    'username': u?'delete_fail'} (re)
   Final aggregated config:
-  {'auth_host': u?'http://localhost:8080', (re)
-   'jump_host': u?'http://localhost:8080', (re)
-   'password_provider': u?'testing', (re)
-   'ssh_key_file': '~/.ssh/id_rsa.pub',
-   'username': u?'delete_fail'} (re)
+  ---
+  auth_host: http://localhost:8080
+  jump_host: http://localhost:8080
+  password_provider: testing
+  ssh_key_file: ~/.ssh/id_rsa.pub
+  username: delete_fail
+  ...
+  
   Password provider is: 'testing'
   Will now attempt to obtain an JWT...
   Authentication OK!
