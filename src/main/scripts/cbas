@@ -143,7 +143,7 @@ if __name__ == '__main__':
     try:
         main()
     except (MissingConfigValues, UnexpectedConfigValues) as e:
-        log.info("ERROR: {0}".format(e.message))
+        log.info("ERROR: {0}".format(e))
         sys.exit(1)
     except Exception as e:
         log.info(e)
