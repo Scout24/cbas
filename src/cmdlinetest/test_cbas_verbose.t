@@ -56,7 +56,7 @@
   jump_host: null
   password_provider: prompt
   ssh_key_file: ~/.ssh/id_rsa.pub
-  username: schlomo
+  username: * (glob)
   ...
   
   Values supplied on the command-line are:
@@ -115,7 +115,7 @@
   jump_host: null
   password_provider: prompt
   ssh_key_file: ~/.ssh/id_rsa.pub
-  username: schlomo
+  username: * (glob)
   ...
   
   Values supplied on the command-line are:
@@ -152,7 +152,7 @@
   jump_host: null
   password_provider: prompt
   ssh_key_file: ~/.ssh/id_rsa.pub
-  username: schlomo
+  username: * (glob)
   ...
   
   Values supplied on the command-line are:
@@ -212,7 +212,7 @@
   jump_host: null
   password_provider: prompt
   ssh_key_file: ~/.ssh/id_rsa.pub
-  username: schlomo
+  username: * (glob)
   ...
   
   Values supplied on the command-line are:
@@ -248,7 +248,7 @@
   jump_host: null
   password_provider: prompt
   ssh_key_file: ~/.ssh/id_rsa.pub
-  username: schlomo
+  username: * (glob)
   ...
   
   Values supplied on the command-line are:
