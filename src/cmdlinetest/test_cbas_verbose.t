@@ -20,7 +20,6 @@
     --help                          Show this message and exit.
   
   Commands:
-    delete   Delete user.
     dry_run  Dry run, sanitize all config only.
     upload   Upload ssh-key and create user.
 
@@ -201,102 +200,6 @@
     File "*/site-packages/requests/models.py", line *, in raise_for_status (glob)
       raise HTTPError(http_error_msg, response=self)
   requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: http://localhost:8080/create
-  [1]
-
-# Test a positive case for user deletion
-
-  $ cbas -v -u user_ok -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
-  Default config is:
-  ---
-  auth_host: null
-  jump_host: null
-  password_provider: prompt
-  ssh_key_file: ~/.ssh/id_rsa.pub
-  username: * (glob)
-  ...
-  
-  Values supplied on the command-line are:
-  {'auth_host': u?'http://localhost:8080', (re)
-   'jump_host': u?'http://localhost:8080', (re)
-   'password_provider': u?'testing', (re)
-   'ssh_key_file': None, (re)
-   'username': u?'user_ok'} (re)
-  Final aggregated config:
-  ---
-  auth_host: http://localhost:8080
-  jump_host: http://localhost:8080
-  password_provider: testing
-  ssh_key_file: ~/.ssh/id_rsa.pub
-  username: user_ok
-  ...
-  
-  Password provider is: 'testing'
-  Will now attempt to obtain an JWT...
-  Authentication OK!
-  Access token was received.
-  Access token is:
-  'my-nifty-access-token'
-  Will now attempt to delete your user...
-  Delete OK!
-
-# Test a negative case for user deletion
-
-  $ cbas -v -u delete_fail -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
-  Default config is:
-  ---
-  auth_host: null
-  jump_host: null
-  password_provider: prompt
-  ssh_key_file: ~/.ssh/id_rsa.pub
-  username: * (glob)
-  ...
-  
-  Values supplied on the command-line are:
-  {'auth_host': u?'http://localhost:8080', (re)
-   'jump_host': u?'http://localhost:8080', (re)
-   'password_provider': u?'testing', (re)
-   'ssh_key_file': None, (re)
-   'username': u?'delete_fail'} (re)
-  Final aggregated config:
-  ---
-  auth_host: http://localhost:8080
-  jump_host: http://localhost:8080
-  password_provider: testing
-  ssh_key_file: ~/.ssh/id_rsa.pub
-  username: delete_fail
-  ...
-  
-  Password provider is: 'testing'
-  Will now attempt to obtain an JWT...
-  Authentication OK!
-  Access token was received.
-  Access token is:
-  'the-token-with-which-delete-will-fail'
-  Will now attempt to delete your user...
-  Delete failed!
-  403 Client Error: Forbidden for url: http://localhost:8080/delete
-  Traceback (most recent call last):
-    File "*/scripts/cbas", line *, in <module> (glob)
-      main()
-    File "*/site-packages/click/core.py", line *, in __call__ (glob)
-      return self.main(*args, **kwargs)
-    File "*/site-packages/click/core.py", line *, in main (glob)
-      rv = self.invoke(ctx)
-    File "*/site-packages/click/core.py", line *, in invoke (glob)
-      return _process_result(sub_ctx.command.invoke(sub_ctx))
-    File "*/site-packages/click/core.py", line *, in invoke (glob)
-      return ctx.invoke(self.callback, **ctx.params)
-    File "*/site-packages/click/core.py", line *, in invoke (glob)
-      return callback(*args, **kwargs)
-    File "*/site-packages/click/decorators.py", line *, in new_func (glob)
-      return ctx.invoke(f, obj, *args[1:], **kwargs)
-    File "*/site-packages/click/core.py", line *, in invoke (glob)
-      return callback(*args, **kwargs)
-    File "*/scripts/cbas", line *, in delete (glob)
-      jump_response.raise_for_status()
-    File "*/site-packages/requests/models.py", line *, in raise_for_status (glob)
-      raise HTTPError(http_error_msg, response=self)
-  requests.exceptions.HTTPError: 403 Client Error: Forbidden for url: http://localhost:8080/delete
   [1]
 
 # Shut down the mocked cbastion/auth server

@@ -20,7 +20,6 @@
     --help                          Show this message and exit.
   
   Commands:
-    delete   Delete user.
     dry_run  Dry run, sanitize all config only.
     upload   Upload ssh-key and create user.
 
@@ -74,26 +73,6 @@
   Will now attempt to upload your ssh-key...
   Upload failed: {"error": "Permission denied"}
   403 Client Error: Forbidden for url: http://localhost:8080/create
-  [1]
-
-# Test a positive case for user deletion
-
-  $ cbas -u user_ok -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
-  Will now attempt to obtain an JWT...
-  Authentication OK!
-  Access token was received.
-  Will now attempt to delete your user...
-  Delete OK!
-
-# Test a negative case for user deletion
-
-  $ cbas -u delete_fail -p testing -h $JUMP_MOCK -a $AUTH_MOCK delete
-  Will now attempt to obtain an JWT...
-  Authentication OK!
-  Access token was received.
-  Will now attempt to delete your user...
-  Delete failed!
-  403 Client Error: Forbidden for url: http://localhost:8080/delete
   [1]
 
 # Test error message for an empty page
