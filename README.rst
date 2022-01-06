@@ -17,6 +17,9 @@ cbas - command line interface to the c-bastion
 .. contents:: Table of Contents
    :depth: 1
 
+This project is DEPRECATED and not any longer supported
+=======================================================
+
 About
 =====
 
